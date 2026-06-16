@@ -691,7 +691,7 @@ code {
   color: var(--text-default);
   background: var(--bg-body);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   padding: var(--spacing-sm) var(--spacing-sm);
   outline: none;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -745,14 +745,14 @@ code {
   appearance: none;
   border: 1px solid var(--border-default);
   background: var(--bg-body);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
 }
 .brand-input-row .hex-input-wrap {
   display: inline-flex;
   align-items: center;
   background: var(--bg-body);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   padding: 4px 8px;
 }
 .brand-input-row .hex-input {
