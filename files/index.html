@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — Style Reference</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <span class="breadcrumb-root">Design System</span>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Style Reference</span>
+      </div>
+      <div class="header-tabs">
+        <button class="htab active">Vista general</button>
+        <button class="htab">DESIGN.md</button>
+        <button class="htab">CSS Variables</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero-section">
+      <div class="ds-badge">
+        <span class="ds-badge-dot"></span>
+        <span>Design System v1.08</span>
+      </div>
+      <h1 class="hero-title">Design System</h1>
+      <p class="hero-desc">
+        Superficie limpia, jerarquía precisa y un único color de marca. Grises semánticos sobre fondo blanco, 
+        tipografía Figtree de trazo moderado, y una paleta de estados bien definida que le da a cada elemento 
+        su propósito sin ambigüedad. Un sistema pensado para interfaces de gestión y datos financieros: denso 
+        pero ordenado, funcional pero cuidado.
+      </p>
+    </section>
+
+    <!-- ===================== BRAND COLOR ===================== -->
+    <section class="ds-section" id="brand-section">
+      <h2 class="section-title">Brand Color</h2>
+      <p class="section-subdesc">Ingresa el color primario de la marca del cliente. Se genera una paleta completa tipo Tailwind y se aplican los tokens brand al DESIGN.md.</p>
+
+      <div class="brand-tool">
+        <div class="brand-input-row">
+          <input type="color" id="brand-color-picker" value="#2563EB" class="input color-picker" oninput="syncFromPicker(this.value)" />
+          <div class="hex-input-wrap">
+            <span class="hex-prefix">#</span>
+            <input type="text" id="brand-hex-input" value="2563EB" class="hex-input input" maxlength="6" placeholder="2563EB" oninput="syncFromHex(this.value)" />
+          </div>
+          <button class="btn btn-primary btn-md" onclick="generateBrandPalette()">Generar paleta</button>
+          <button class="btn btn-secondary btn-md" id="reset-btn" onclick="resetBrand()" style="display:none">Restaurar original</button>
+        </div>
+
+        <div id="brand-palette-preview" style="display:none">
+          <div class="subsection-label" style="margin:var(--spacing-xl) 0 var(--spacing-sm)">Paleta generada</div>
+          <div id="palette-swatches" class="palette-swatches"></div>
+
+          <div class="subsection-label" style="margin:var(--spacing-xl) 0 var(--spacing-sm)">Tokens brand</div>
+          <div id="brand-tokens-grid" class="brand-tokens-grid"></div>
+
+          <div id="contrast-notice" style="display:none;margin-top:var(--spacing-md)"></div>
+        </div>
+        <div style="margin-top:var(--spacing-lg);">
+          <button class="btn btn-primary btn-md" id="apply-btn" onclick="applyBrand()" style="display:none">Aplicar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COLOR PALETTE ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Color Palette</h2>
+
+      <div class="subsection-label">Brand</div>
+      <div class="palette-grid">
+        <div class="swatch-card" id="brand-swatch-card">
+          <div class="swatch-block" style="background:#020617" id="brand-swatch-block"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Brand</div>
+            <div class="swatch-hex" id="brand-swatch-hex">#020617</div>
+            <div class="swatch-desc">Botón primario, elementos de identidad de marca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection-label" style="margin-top:2rem">Neutrals</div>
+      <div class="palette-grid">
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#020617"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Strong</div>
+            <div class="swatch-hex">#020617</div>
+            <div class="swatch-desc">Títulos y énfasis máximo</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#334155"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Default</div>
+            <div class="swatch-hex">#334155</div>
+            <div class="swatch-desc">Texto principal de contenido</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#64748B"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Subtle</div>
+            <div class="swatch-hex">#64748B</div>
+            <div class="swatch-desc">Labels, descripciones, metadatos, placeholders</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#CBD5E1"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Disabled</div>
+            <div class="swatch-hex">#CBD5E1</div>
+            <div class="swatch-desc">Texto en estados deshabilitados</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#E2E8F0; border:1px solid #E2E8F0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Border Default</div>
+            <div class="swatch-hex">#E2E8F0</div>
+            <div class="swatch-desc">Borde estándar de componentes</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#F1F5F9; border:1px solid #E2E8F0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Surface Hover</div>
+            <div class="swatch-hex">#F1F5F9</div>
+            <div class="swatch-desc">Hover de filas, ítems de lista</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#F8FAFC; border:1px solid #E2E8F0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Surface</div>
+            <div class="swatch-hex">#F8FAFC</div>
+            <div class="swatch-desc">Tarjetas, paneles, fondos de tabla</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#FFFFFF; border:1px solid #E2E8F0"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Body</div>
+            <div class="swatch-hex">#FFFFFF</div>
+            <div class="swatch-desc">Fondo base de página</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection-label" style="margin-top:2rem">Estados</div>
+      <div class="palette-grid">
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#16A34A"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Éxito</div>
+            <div class="swatch-hex">#16A34A</div>
+            <div class="swatch-desc">Confirmaciones, validaciones exitosas, badges de éxito</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#DC2626"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Error</div>
+            <div class="swatch-hex">#DC2626</div>
+            <div class="swatch-desc">Errores de validación, acciones destructivas, alertas críticas</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#CA9A04"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Alerta</div>
+            <div class="swatch-hex">#CA9A04</div>
+            <div class="swatch-desc">Advertencias, estados que requieren atención</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#3B82F6"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Info</div>
+            <div class="swatch-hex">#3B82F6</div>
+            <div class="swatch-desc">Mensajes informativos, estados neutros de información</div>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-block" style="background:#166533"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Excel</div>
+            <div class="swatch-hex">#166533</div>
+            <div class="swatch-desc">Exclusivo para acción de exportar a Excel</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TYPOGRAPHY ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Typography</h2>
+
+      <div class="type-meta-block">
+        <div class="type-meta-row">
+          <span class="type-meta-label">Primary</span>
+          <span class="type-meta-value">Figtree</span>
+        </div>
+        <div class="type-meta-row">
+          <span class="type-meta-label">Weight</span>
+          <span class="type-meta-value">400, 600</span>
+        </div>
+        <div class="type-meta-row">
+          <span class="type-meta-label">Sizes</span>
+          <span class="type-meta-value">12–48px · 6 pasos</span>
+        </div>
+        <div class="type-meta-row">
+          <span class="type-meta-label">Line height</span>
+          <span class="type-meta-value">1.18 – 1.43</span>
+        </div>
+        <div class="type-meta-row">
+          <span class="type-meta-label">Letter spacing</span>
+          <span class="type-meta-value">0 (neutral en todos los tamaños)</span>
+        </div>
+        <div class="type-meta-row">
+          <span class="type-meta-label">Fallback</span>
+          <span class="type-meta-value">system-ui, sans-serif</span>
+        </div>
+      </div>
+
+      <p class="type-desc">
+        Fuente única para todos los elementos de texto. El peso 400 maneja cuerpo y metadatos; el 600 cubre títulos, labels con énfasis y texto de botones. La escala va de 12px para metadatos compactos hasta 48px para displays de página. Sin negative letter-spacing: Figtree tiene métricas ópticas neutras que funcionan bien en todos los tamaños sin ajustes.
+      </p>
+
+      <div class="type-scale">
+        <div class="type-row">
+          <div class="type-token">display-48</div>
+          <div class="type-spec">48px · 600 · 57px</div>
+          <div class="type-preview" style="font-size:48px;font-weight:600;line-height:57px">Display</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">display-40</div>
+          <div class="type-spec">40px · 600 · 48px</div>
+          <div class="type-preview" style="font-size:40px;font-weight:600;line-height:48px">Display</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">heading-1</div>
+          <div class="type-spec">32px · 600 · 40px</div>
+          <div class="type-preview" style="font-size:32px;font-weight:600;line-height:40px">Heading 1</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">heading-2</div>
+          <div class="type-spec">28px · 600 · 32px</div>
+          <div class="type-preview" style="font-size:28px;font-weight:600;line-height:32px">Heading 2</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">heading-3</div>
+          <div class="type-spec">24px · 600 · 28px</div>
+          <div class="type-preview" style="font-size:24px;font-weight:600;line-height:28px">Heading 3</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">heading-4</div>
+          <div class="type-spec">20px · 600 · 24px</div>
+          <div class="type-preview" style="font-size:20px;font-weight:600;line-height:24px">Heading 4</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">body</div>
+          <div class="type-spec">16px · 400 · 20px</div>
+          <div class="type-preview" style="font-size:16px;font-weight:400;line-height:20px">Texto de cuerpo principal</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">body-strong</div>
+          <div class="type-spec">16px · 600 · 20px</div>
+          <div class="type-preview" style="font-size:16px;font-weight:600;line-height:20px">Texto de cuerpo con énfasis</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">small</div>
+          <div class="type-spec">14px · 400 · 18px</div>
+          <div class="type-preview" style="font-size:14px;font-weight:400;line-height:18px">Labels, descripciones, textos secundarios</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">small-strong</div>
+          <div class="type-spec">14px · 600 · 18px</div>
+          <div class="type-preview" style="font-size:14px;font-weight:600;line-height:18px">Labels con énfasis, texto de botones md/lg</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">extra-small</div>
+          <div class="type-spec">12px · 400 · 16px</div>
+          <div class="type-preview" style="font-size:12px;font-weight:400;line-height:16px">Metadatos, badges, texto de ayuda</div>
+        </div>
+        <div class="type-row">
+          <div class="type-token">extra-small-strong</div>
+          <div class="type-spec">12px · 600 · 16px</div>
+          <div class="type-preview" style="font-size:12px;font-weight:600;line-height:16px">Texto de botones sm, etiquetas de estado</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SPACING & SHAPE ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Spacing &amp; Shape</h2>
+
+      <div class="two-col">
+        <div>
+          <div class="subsection-label">Spacing</div>
+          <table class="spec-table">
+            <thead>
+              <tr><th>Token</th><th>Valor</th><th>Preview</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">--spacing-none</td><td>0px</td><td></td></tr>
+              <tr><td class="mono">--spacing-xxs</td><td>4px</td><td><div class="sp-preview" style="width:4px"></div></td></tr>
+              <tr><td class="mono">--spacing-xs</td><td>8px</td><td><div class="sp-preview" style="width:8px"></div></td></tr>
+              <tr><td class="mono">--spacing-sm</td><td>12px</td><td><div class="sp-preview" style="width:12px"></div></td></tr>
+              <tr><td class="mono">--spacing-md</td><td>16px</td><td><div class="sp-preview" style="width:16px"></div></td></tr>
+              <tr><td class="mono">--spacing-lg</td><td>20px</td><td><div class="sp-preview" style="width:20px"></div></td></tr>
+              <tr><td class="mono">--spacing-xl</td><td>24px</td><td><div class="sp-preview" style="width:24px"></div></td></tr>
+              <tr><td class="mono">--spacing-2xl</td><td>32px</td><td><div class="sp-preview" style="width:32px"></div></td></tr>
+              <tr><td class="mono">--spacing-3xl</td><td>40px</td><td><div class="sp-preview" style="width:40px"></div></td></tr>
+              <tr><td class="mono">--spacing-4xl</td><td>48px</td><td><div class="sp-preview" style="width:48px"></div></td></tr>
+              <tr><td class="mono">--spacing-5xl</td><td>64px</td><td><div class="sp-preview" style="width:64px"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <div class="subsection-label">Border Radius</div>
+          <table class="spec-table">
+            <thead>
+              <tr><th>Elemento</th><th>Valor</th><th>Preview</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Todos los componentes</td>
+                <td>8px</td>
+                <td><div class="radius-preview" style="border-radius:8px"></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="spec-note">Un único valor de border-radius en todo el sistema. No introducir otros valores.</p>
+
+          <div class="subsection-label" style="margin-top:2rem">Elevation</div>
+          <div class="elevation-list">
+            <div class="elevation-item">
+              <div class="elevation-swatch" style="box-shadow: 0 1px 2px rgba(0,0,0,0.05)"></div>
+              <div>
+                <div class="elevation-name">shadow-sm</div>
+                <div class="elevation-use">Hover de inputs y componentes interactivos</div>
+                <div class="elevation-val mono">0 1px 2px rgba(0,0,0,0.05)</div>
+              </div>
+            </div>
+            <div class="elevation-item">
+              <div class="elevation-swatch" style="box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04)"></div>
+              <div>
+                <div class="elevation-name">shadow-md</div>
+                <div class="elevation-use">Tarjetas, paneles elevados</div>
+                <div class="elevation-val mono">0 4px 6px -1px rgba(0,0,0,0.08),<br>0 2px 4px -1px rgba(0,0,0,0.04)</div>
+              </div>
+            </div>
+            <div class="elevation-item">
+              <div class="elevation-swatch" style="box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04)"></div>
+              <div>
+                <div class="elevation-name">shadow-lg</div>
+                <div class="elevation-use">Modales, dropdowns</div>
+                <div class="elevation-val mono">0 10px 15px -3px rgba(0,0,0,0.08),<br>0 4px 6px -2px rgba(0,0,0,0.04)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GUIDELINES ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Guidelines</h2>
+      <div class="guidelines-grid">
+        <div class="guideline-col do-col">
+          <div class="guideline-header do-header">✓ Do</div>
+          <ul class="guideline-list">
+            <li>Usar siempre tokens semánticos (<code>--text-default</code>, <code>--bg-surface</code>) en los componentes. Los primitivos solo existen para construir los semánticos.</li>
+            <li>Aplicar <code>border-radius: 8px</code> a todos los componentes sin excepción: inputs, botones, tarjetas, badges, modales.</li>
+            <li>Usar <code>--spacing-none</code> (0px) entre un título y su descripción inmediata para crear agrupación visual compacta.</li>
+            <li>Usar los tres tokens de estado en conjunto: <code>--bg-error</code> + <code>--border-error</code> + <code>--text-error</code> siempre juntos.</li>
+            <li>Mantener todo el texto alineado a la izquierda. Solo los montos y números en tablas van a la derecha.</li>
+            <li>Limitar a un botón Primario por vista. Si hay dos acciones importantes, una es Secundaria.</li>
+            <li>Usar <code>--spacing-md</code> (16px) como separación estándar entre campos de formulario.</li>
+            <li>Usar el botón Excel <em>exclusivamente</em> para exportar a Excel. Ninguna otra acción de descarga.</li>
+          </ul>
+        </div>
+        <div class="guideline-col dont-col">
+          <div class="guideline-header dont-header">✗ Don't</div>
+          <ul class="guideline-list">
+            <li>Nunca hardcodear valores de color como <code>#334155</code>. Usar siempre <code>var(--text-default)</code>.</li>
+            <li>Nunca usar <code>font-size</code> con valores fuera de la escala: 13px, 15px, 17px, 19px no existen en el sistema.</li>
+            <li>No usar <code>font-weight</code> distinto a 400 o 600. Los pesos 500, 700 no están en el sistema.</li>
+            <li>No usar <code>margin</code> o <code>padding</code> con valores arbitrarios como 10px, 15px, 22px. Solo tokens de espaciado.</li>
+            <li>No usar <code>border-radius</code> distinto a 8px. Ni 4px, ni 12px, ni 16px.</li>
+            <li>No usar <code>text-align: center</code> en párrafos o cuerpos de texto.</li>
+            <li>No usar el botón Error para acciones de cancelación. Cancelar siempre es Secundario.</li>
+            <li>No usar font-family distinto a Figtree. Sin excepciones.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPONENT PREVIEW ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Component Preview</h2>
+      <p class="section-subdesc">Ejemplos funcionales de los componentes del sistema.</p>
+
+      <!-- Buttons -->
+      <div class="component-block">
+        <div class="component-label">Botones — Variantes y tamaños</div>
+        <div class="component-demo">
+          <div class="demo-row">
+            <button class="btn btn-primary btn-lg">Botón lg</button>
+            <button class="btn btn-primary btn-md">Botón md</button>
+            <button class="btn btn-primary btn-sm">Botón sm</button>
+          </div>
+          <div class="demo-row">
+            <button class="btn btn-secondary btn-lg">Botón lg</button>
+            <button class="btn btn-secondary btn-md">Botón md</button>
+            <button class="btn btn-secondary btn-sm">Botón sm</button>
+          </div>
+          <div class="demo-row">
+            <button class="btn btn-error btn-lg">Eliminar</button>
+            <button class="btn btn-error btn-md">Eliminar</button>
+            <button class="btn btn-error btn-sm">Eliminar</button>
+          </div>
+          <div class="demo-row">
+            <button class="btn btn-excel btn-lg">Descargar Excel</button>
+            <button class="btn btn-excel btn-md">Descargar Excel</button>
+            <button class="btn btn-excel btn-sm">Excel</button>
+          </div>
+          <div class="demo-row">
+            <button class="btn btn-primary btn-md" disabled>Deshabilitado</button>
+            <button class="btn btn-secondary btn-md" disabled>Deshabilitado</button>
+            <button class="btn btn-error btn-md" disabled>Deshabilitado</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="component-block">
+        <div class="component-label">Inputs de texto — Estados</div>
+        <div class="component-demo inputs-grid">
+          <div class="input-wrap">
+            <label class="input-label">Etiqueta</label>
+            <input class="input input-default" type="text" placeholder="Default — ingrese texto aquí" />
+            <span class="input-hint">Texto de ayuda</span>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">Etiqueta</label>
+            <input class="input input-hover" type="text" placeholder="Hover — con sombra" />
+            <span class="input-hint">Texto de ayuda</span>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">Etiqueta</label>
+            <input class="input input-active" type="text" placeholder="Active — borde oscuro" />
+            <span class="input-hint">Texto de ayuda</span>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">Etiqueta</label>
+            <input class="input input-filled" type="text" value="Texto ingresado" />
+            <span class="input-hint">Texto de ayuda</span>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">Etiqueta *</label>
+            <input class="input input-error" type="text" placeholder="Error — borde rojo" />
+            <span class="input-hint error-hint">Este campo es obligatorio.</span>
+          </div>
+          <div class="input-wrap">
+            <label class="input-label disabled-label">Etiqueta</label>
+            <input class="input input-disabled" type="text" placeholder="Deshabilitado" disabled />
+            <span class="input-hint">Texto de ayuda</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="component-block">
+        <div class="component-label">Alertas — Estados</div>
+        <div class="component-demo alerts-col">
+          <div class="alert alert-success">
+            <span class="alert-icon">✓</span>
+            <div><strong>Acción completada.</strong> Los cambios se han guardado correctamente.</div>
+          </div>
+          <div class="alert alert-error">
+            <span class="alert-icon">!</span>
+            <div><strong>Error al guardar.</strong> Revisa los campos marcados e intenta nuevamente.</div>
+          </div>
+          <div class="alert alert-warning">
+            <span class="alert-icon">⚠</span>
+            <div><strong>Atención.</strong> Este cambio afectará a todos los registros del período.</div>
+          </div>
+          <div class="alert alert-info">
+            <span class="alert-icon">i</span>
+            <div><strong>Información.</strong> El proceso puede demorar hasta 24 horas en completarse.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CSS VARIABLES ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">CSS Custom Properties</h2>
+      <p class="section-subdesc">Declarar en <code>:root</code> del archivo CSS base del proyecto. En los componentes, siempre referenciar las variables, nunca los valores directos.</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyBlock(this)">Copiar</button>
+        <pre id="css-vars">```css
+      :root {
+  /* Primitivos — Grises */
+  --gris-50:  #F8FAFC;
+  --gris-100: #F1F5F9;
+  --gris-200: #E2E8F0;
+  --gris-300: #CBD5E1;
+  --gris-400: #94A3B8;
+  --gris-500: #64748B;
+  --gris-600: #475569;
+  --gris-700: #334155;
+  --gris-800: #1E293B;
+  --gris-900: #0F172A;
+  --gris-950: #020617;
+
+  /* Primitivos — Estados */
+  --exito-50:   #F0FDF5;
+  --exito-500:  #22C55E;
+  --exito-600:  #16A34A;
+  --error-50:   #FEF2F2;
+  --error-500:  #EF4444;
+  --error-600:  #DC2626;
+  --alerta-50:  #FEF9E8;
+  --alerta-500: #EAB308;
+  --alerta-600: #CA9A04;
+  --info-50:    #EFF5FF;
+  --info-500:   #3B82F6;
+
+  /* Semánticos — Background */
+  --bg-body:           #FFFFFF;
+  --bg-surface:        var(--gris-50);
+  --bg-hover:          var(--gris-100);
+  --bg-presionado:     var(--gris-200);
+  --bg-deshabilitado:  var(--gris-100);
+  --bg-accion:         var(--gris-600);
+  --bg-brand:          var(--gris-950);
+  --bg-exito:          var(--exito-50);
+  --bg-error:          var(--error-50);
+  --bg-alerta:         var(--alerta-50);
+  --bg-info:           var(--info-50);
+  --bg-modal:          rgba(2, 6, 23, 0.70);
+
+  /* Semánticos — Texto */
+  --text-default:   var(--gris-700);
+  --text-subtle:    var(--gris-500);
+  --text-strong:    var(--gris-950);
+  --text-disabled:  var(--gris-300);
+  --text-onColor:   #FFFFFF;
+  --text-info:      var(--info-500);
+  --text-exito:     var(--exito-600);
+  --text-error:     var(--error-600);
+  --text-alerta:    var(--alerta-600);
+
+  /* Semánticos — Bordes */
+  --border-default:        var(--gris-200);
+  --border-strong:         var(--gris-600);
+  --border-active:         var(--gris-700);
+  --border-focus:          var(--gris-400);
+  --border-deshabilitado:  var(--gris-100);
+  --border-info:           var(--info-500);
+  --border-exito:          var(--exito-500);
+  --border-error:          var(--error-600);
+  --border-alerta:         var(--alerta-500);
+
+  /* Semánticos — Botones */
+  --button-error: var(--error-600);
+  --button-excel: #166533;
+
+  /* Espaciado */
+  --spacing-none: 0px;
+  --spacing-xxs:  4px;
+  --spacing-xs:   8px;
+  --spacing-sm:   12px;
+  --spacing-md:   16px;
+  --spacing-lg:   20px;
+  --spacing-xl:   24px;
+  --spacing-2xl:  32px;
+  --spacing-3xl:  40px;
+  --spacing-4xl:  48px;
+  --spacing-5xl:  64px;
+
+  /* Tipografía */
+  --font-family: 'Figtree', system-ui, sans-serif;
+
+  /* Forma */
+  --radius-base: 8px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08),
+               0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
+               0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+```
+</pre>
+      </div>
+    </section>
+
+    <!-- ===================== AGENT PROMPT GUIDE ===================== -->
+    <section class="ds-section">
+      <h2 class="section-title">Agent Prompt Guide</h2>
+      <p class="section-subdesc">Referencia rápida de colores y prompts de ejemplo para herramientas de IA.</p>
+
+      <div class="quick-ref">
+        <div class="quick-ref-title">Quick Color Reference</div>
+        <div class="quick-ref-grid">
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#020617"></span><span class="qr-key">Brand / Primario</span><span class="qr-val">#020617</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#334155"></span><span class="qr-key">Texto principal</span><span class="qr-val">#334155</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#64748B"></span><span class="qr-key">Texto secundario</span><span class="qr-val">#64748B</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#E2E8F0; border:1px solid #ccc"></span><span class="qr-key">Borde default</span><span class="qr-val">#E2E8F0</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#F8FAFC; border:1px solid #ccc"></span><span class="qr-key">Fondo surface</span><span class="qr-val">#F8FAFC</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#FFFFFF; border:1px solid #ccc"></span><span class="qr-key">Fondo body</span><span class="qr-val">#FFFFFF</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#DC2626"></span><span class="qr-key">Error</span><span class="qr-val">#DC2626</span></div>
+          <div class="quick-ref-item"><span class="qr-dot" style="background:#16A34A"></span><span class="qr-key">Éxito</span><span class="qr-val">#16A34A</span></div>
+        </div>
+      </div>
+
+      <div class="prompts-list">
+        <div class="prompt-item">
+          <div class="prompt-label">1. Formulario de login</div>
+          <div class="prompt-body">Fondo <code>--bg-body</code>. Tarjeta centrada con fondo <code>--bg-surface</code>, padding <code>--spacing-xl</code> (24px), border-radius 8px, sombra <code>--shadow-md</code>. Título en heading-2 (28px/600), descripción en small (14px/400) color <code>--text-subtle</code>, separación <code>--spacing-none</code>. Dos inputs de texto con label en small-strong y placeholder en <code>--text-subtle</code>, separados por <code>--spacing-md</code> (16px). Botón primario lg al final. Link de "Olvidé mi contraseña" en small, color <code>--text-subtle</code>.</div>
+        </div>
+        <div class="prompt-item">
+          <div class="prompt-label">2. Tabla de datos</div>
+          <div class="prompt-body">Cabecera con fondo <code>--bg-surface</code>, texto en small-strong (14px/600), color <code>--text-subtle</code>. Filas con fondo <code>--bg-body</code>, hover <code>--bg-hover</code>. Texto de celdas en small (14px/400), color <code>--text-default</code>. Números y montos alineados a la derecha. Borde inferior de fila en <code>--border-default</code>. Máximo 2 líneas por celda con line-clamp.</div>
+        </div>
+        <div class="prompt-item">
+          <div class="prompt-label">3. Tarjeta con acción</div>
+          <div class="prompt-body">Fondo <code>--bg-surface</code>, borde <code>1px solid --border-default</code>, border-radius 8px, padding <code>--spacing-xl</code> (24px). Título en heading-4 (20px/600), color <code>--text-strong</code>. Descripción en small (14px/400), color <code>--text-subtle</code>. Separación título-descripción: <code>--spacing-none</code>. Separación entre secciones internas: <code>--spacing-md</code>. Botón primario md en la parte inferior.</div>
+        </div>
+        <div class="prompt-item">
+          <div class="prompt-label">4. Estado de error en formulario</div>
+          <div class="prompt-body">El input afectado usa borde <code>--border-error</code> (#DC2626), ícono de advertencia en <code>--text-error</code> dentro del campo. Texto de error bajo el campo en extra-small (12px/400), color <code>--text-error</code>. Fondo del input permanece en <code>--bg-body</code>. El resto de inputs mantienen su estado normal. No usar <code>--bg-error</code> en el input, solo en alertas o callouts.</div>
+        </div>
+        <div class="prompt-item">
+          <div class="prompt-label">5. Modal de confirmación destructiva</div>
+          <div class="prompt-body">Overlay con <code>--bg-modal</code> (rgba(2,6,23,0.70)). Contenido en blanco (<code>--bg-body</code>), padding <code>--spacing-xl</code>, border-radius 8px, sombra <code>--shadow-lg</code>. Título en heading-3 (24px/600). Descripción en body (16px/400), color <code>--text-subtle</code>. Dos botones: Cancelar (Secundario md) y Eliminar (Error md). El botón de Error va a la derecha.</div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- ===================== DESIGN.MD ===================== -->
+    <section class="ds-section" id="design-md-section" style="display:none">
+      <h2 class="section-title">DESIGN.md</h2>
+      <p class="section-subdesc">Archivo de contexto para herramientas de IA — Claude, Cursor, v0, Stitch. Pégalo al inicio de tu prompt o adjúntalo como archivo de contexto para que cualquier IA genere pantallas respetando el sistema.</p>
+
+      <div class="md-actions">
+        <button class="btn btn-primary btn-md" onclick="downloadMd()">Descargar DESIGN.md</button>
+      </div>
+
+      <div class="code-block md-block">
+        <button class="copy-btn" onclick="copyBlock(this)">Copiar</button>
+        <pre id="md-content">```md
+      # Design System — DESIGN.md
+> Guía de referencia para herramientas de IA y agentes de código
+
+**Tema:** claro (light mode)
+**Fuente principal:** Figtree
+**Plataformas:** Web (desktop + mobile)
+**Stack:** HTML + CSS puro (sin frameworks). Variables CSS en `:root`.
+
+Este archivo define los tokens, componentes y reglas de decisión del Design System. Cualquier pantalla, componente o modificación generada por IA debe respetar estrictamente estos valores. No se deben introducir colores, tamaños de texto, espaciados ni border-radius fuera de los definidos aquí.
+
+---
+
+## Tokens — Colores
+
+El sistema usa dos capas de color: **primitivos** (la paleta base) y **semánticos** (tokens con propósito). En los componentes, usar siempre los tokens semánticos. Los primitivos solo existen para construir los semánticos y no deben usarse directamente.
+
+### Semánticos — Background
+
+| Token | Valor | Primitivo | Uso |
+|-------|-------|-----------|-----|
+| `--bg-body` | `#FFFFFF` | blanco | Fondo base de la página |
+| `--bg-surface` | `#F8FAFC` | gris-50 | Tarjetas, paneles, tablas, contenedores elevados |
+| `--bg-hover` | `#F1F5F9` | gris-100 | Estado hover de filas, ítems de lista, elementos interactivos |
+| `--bg-presionado` | `#E2E8F0` | gris-200 | Estado active/pressed de elementos interactivos |
+| `--bg-deshabilitado` | `#F1F5F9` | gris-100 | Fondo de campos y botones en estado disabled |
+| `--bg-accion` | `#475569` | gris-600 | Fondos de acciones secundarias específicas |
+| `--bg-brand` | `#020617` | gris-950 | Botón primario, elementos de marca |
+| `--bg-exito` | `#F0FDF5` | exito-50 | Fondo de alertas y badges de éxito |
+| `--bg-error` | `#FEF2F2` | error-50 | Fondo de alertas y mensajes de error |
+| `--bg-alerta` | `#FEF9E8` | alerta-50 | Fondo de alertas de advertencia |
+| `--bg-info` | `#EFF5FF` | info-50 | Fondo de alertas informativas |
+| `--bg-modal` | `rgba(2, 6, 23, 0.70)` | — | Overlay de modales |
+
+### Semánticos — Texto
+
+| Token | Valor | Primitivo | Uso |
+|-------|-------|-----------|-----|
+| `--text-default` | `#334155` | gris-700 | Texto principal del contenido |
+| `--text-subtle` | `#64748B` | gris-500 | Labels, descripciones, metadatos, placeholders |
+| `--text-strong` | `#020617` | gris-950 | Títulos, énfasis máximo |
+| `--text-disabled` | `#CBD5E1` | gris-300 | Texto en estados deshabilitados |
+| `--text-onColor` | `#FFFFFF` | blanco | Texto sobre fondos oscuros o de color |
+| `--text-info` | `#3B82F6` | info-500 | Texto de estado informativo |
+| `--text-exito` | `#16A34A` | exito-600 | Texto de estado de éxito |
+| `--text-error` | `#DC2626` | error-600 | Texto de estado de error, mensajes de validación |
+| `--text-alerta` | `#CA9A04` | alerta-600 | Texto de advertencia |
+
+### Semánticos — Bordes
+
+| Token | Valor | Primitivo | Uso |
+|-------|-------|-----------|-----|
+| `--border-default` | `#E2E8F0` | gris-200 | Borde estándar de componentes en estado default |
+| `--border-strong` | `#475569` | gris-600 | Borde con énfasis visual |
+| `--border-active` | `#334155` | gris-700 | Borde en estado active/focus de inputs |
+| `--border-focus` | `#94A3B8` | gris-400 | Sombra de foco en inputs |
+| `--border-deshabilitado` | `#F1F5F9` | gris-100 | Borde en estado disabled |
+| `--border-info` | `#3B82F6` | info-500 | Borde informativo |
+| `--border-exito` | `#22C55E` | exito-500 | Borde de éxito |
+| `--border-error` | `#DC2626` | error-600 | Borde de error en inputs y componentes |
+| `--border-alerta` | `#EAB308` | alerta-500 | Borde de advertencia |
+
+### Semánticos — Botones (específicos)
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `--button-error` | `#DC2626` | Fondo de botón destructivo/error |
+| `--button-excel` | `#166533` | Fondo de botón Excel (exportar) |
+
+### Primitivos — Grises
+
+| Token | Valor |
+|-------|-------|
+| `--gris-50` | `#F8FAFC` |
+| `--gris-100` | `#F1F5F9` |
+| `--gris-200` | `#E2E8F0` |
+| `--gris-300` | `#CBD5E1` |
+| `--gris-400` | `#94A3B8` |
+| `--gris-500` | `#64748B` |
+| `--gris-600` | `#475569` |
+| `--gris-700` | `#334155` |
+| `--gris-800` | `#1E293B` |
+| `--gris-900` | `#0F172A` |
+| `--gris-950` | `#020617` |
+
+### Primitivos — Estados
+
+| Token | Valor |
+|-------|-------|
+| `--exito-50` | `#F0FDF5` |
+| `--exito-500` | `#22C55E` |
+| `--exito-600` | `#16A34A` |
+| `--error-50` | `#FEF2F2` |
+| `--error-500` | `#EF4444` |
+| `--error-600` | `#DC2626` |
+| `--alerta-50` | `#FEF9E8` |
+| `--alerta-500` | `#EAB308` |
+| `--alerta-600` | `#CA9A04` |
+| `--info-50` | `#EFF5FF` |
+| `--info-500` | `#3B82F6` |
+
+---
+
+## Tokens — Tipografía
+
+**Fuente:** Figtree — importar desde Google Fonts.
+**Nunca usar otra fuente.** No se permiten tamaños intermedios ni pesos distintos a los definidos.
+
+```html
+&lt;link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" /&gt;
+```
+
+### Escala tipográfica
+
+| Nombre | Tamaño | Peso | Line-height | Uso |
+|--------|--------|------|-------------|-----|
+| display-48 | 48px | 600 | 57px | Títulos de hero, páginas de inicio |
+| display-40 | 40px | 600 | 48px | Títulos de sección impactante |
+| heading-1 | 32px | 600 | 40px | Título principal de página |
+| heading-2 | 28px | 600 | 32px | Título de sección |
+| heading-3 | 24px | 600 | 28px | Subtítulo de sección |
+| heading-4 | 20px | 600 | 24px | Título de tarjeta o panel |
+| body | 16px | 400 | 20px | Texto principal de contenido |
+| body-strong | 16px | 600 | 20px | Texto principal con énfasis |
+| small | 14px | 400 | 18px | Labels, descripciones, textos secundarios |
+| small-strong | 14px | 600 | 18px | Labels con énfasis, texto de botones md/lg |
+| extra-small | 12px | 400 | 16px | Metadatos, badges, texto de ayuda |
+| extra-small-strong | 12px | 600 | 16px | Texto de botones sm, etiquetas de estado |
+
+### Reglas de uso tipográfico
+
+- **Todo el texto va alineado a la izquierda**, sin excepciones. La única excepción son números en tablas (derecha) y cantidades monetarias (derecha).
+- Los Headings van siempre acompañados de texto `small` como descripción. Nunca `body`.
+- La separación entre un Heading y su descripción es `--spacing-none` (0px).
+- No usar `text-align: center` en párrafos ni cuerpos de texto.
+- Capitalización: **Sentence case** por defecto. Title Case solo en títulos de 3 palabras o menos.
+- Truncamiento en tablas: máximo 2 líneas. En tarjetas: máximo 3 líneas.
+
+---
+
+## Tokens — Espaciado
+
+**Unidad base:** 4px. Todo espaciado es múltiplo de 4.
+Usar siempre un token. Nunca valores arbitrarios como `10px`, `15px`, `22px`.
+
+| Token | Valor | Uso típico |
+|-------|-------|------------|
+| `--spacing-none` | `0px` | Agrupación visual compacta (título + descripción) |
+| `--spacing-xxs` | `4px` | Gap interno en botones sm, íconos con texto |
+| `--spacing-xs` | `8px` | Gap en botones md/lg, separación mínima entre elementos |
+| `--spacing-sm` | `12px` | Padding de botones md, separación entre ítems de lista |
+| `--spacing-md` | `16px` | Padding general de contenedores, separación entre campos de formulario |
+| `--spacing-lg` | `20px` | Padding de botones lg, separación entre grupos de elementos |
+| `--spacing-xl` | `24px` | Separación entre secciones dentro de una tarjeta |
+| `--spacing-2xl` | `32px` | Separación entre bloques de contenido en página |
+| `--spacing-3xl` | `40px` | Separación entre secciones grandes |
+| `--spacing-4xl` | `48px` | Márgenes de layout, padding de página |
+| `--spacing-5xl` | `64px` | Separación máxima entre secciones de página |
+
+---
+
+## Tokens — Forma y Elevación
+
+### Border radius
+
+Un único valor de border-radius en todo el sistema: **8px** (`--radius-base`).
+No usar 4px, 12px, 16px ni border-radius: 9999px salvo que el componente lo especifique.
+
+### Sombras
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Hover de inputs y componentes interactivos |
+| `--shadow-md` | `0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04)` | Tarjetas, paneles elevados |
+| `--shadow-lg` | `0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04)` | Modales, dropdowns |
+
+---
+
+## Componentes
+
+### Botones
+
+#### Variantes
+
+| Variante | Fondo | Texto | Borde | Uso |
+|----------|-------|-------|-------|-----|
+| Primario | `--bg-brand` (#020617) | `--text-onColor` (#fff) | ninguno | Acción principal. Máximo 1 por vista. |
+| Secundario | `--bg-body` (#fff) | `--text-default` (#334155) | `1px solid --border-default` | Acciones de apoyo o cancelación. |
+| Link | transparente | `--text-default` | ninguno | Acciones terciarias, navegación contextual. |
+| Error / Destructivo | `--button-error` (#DC2626) | `--text-onColor` (#fff) | ninguno | Acciones irreversibles: eliminar, deshabilitar. |
+| Excel | `--button-excel` (#166533) | `--text-onColor` (#fff) | ninguno | Exclusivo para exportar a Excel. |
+
+#### Tamaños
+
+| Tamaño | Font-size | Padding vertical | Padding horizontal | Gap |
+|--------|-----------|------------------|--------------------|-----|
+| sm | 12px | `--spacing-xxs` (4px) | `--spacing-xs` (8px) | `--spacing-xxs` (4px) |
+| md | 14px | `--spacing-sm` (12px) | `--spacing-md` (16px) | `--spacing-xs` (8px) |
+| lg | 16px | `--spacing-md` (16px) | `--spacing-lg` (20px) | `--spacing-xs` (8px) |
+
+Border-radius: 8px en todos los tamaños y variantes.
+
+#### Estados
+
+- **Primario** — Hover: brightness(1.15). Active: brightness(0.88). Disabled: opacity 0.5.
+- **Secundario** — Hover: `--bg-hover` + `--shadow-sm`. Active: `--bg-presionado`. Disabled: opacity 0.5.
+- **Error** — Hover: brightness(1.1). Active: brightness(0.88). Disabled: opacity 0.5.
+- **Excel** — Hover: brightness(1.1). Active: brightness(0.88). Disabled: opacity 0.5.
+
+#### Reglas de jerarquía
+
+- Máximo 1 botón Primario por vista.
+- Cancelar siempre es Secundario, nunca Destructivo.
+- El botón Destructivo requiere confirmación antes de ejecutar.
+- El botón Excel se usa únicamente para exportar a Excel.
+
+---
+
+### Inputs de texto
+
+#### Anatomía
+
+- **Label:** small-strong (14px/600), `--text-default`. Obligatorio: incluir asterisco (*).
+- **Placeholder:** small (14px/400), `--text-subtle`.
+- **Texto ingresado:** small (14px/400), `--text-default`.
+- **Texto de ayuda:** extra-small (12px/400), `--text-subtle`. Bajo el campo.
+- **Fondo:** `--bg-body`. **Borde:** `1px solid --border-default`, border-radius 8px.
+
+#### Estados
+
+| Estado | Fondo | Borde | Sombra |
+|--------|-------|-------|--------|
+| Default | `--bg-body` | `--border-default` | ninguna |
+| Hover | `--bg-body` | `--border-default` (sin cambio) | `--shadow-sm` |
+| Active | `--bg-body` | `--border-active` (#334155) | ninguna |
+| Filled | `--bg-body` | `--border-default` | ninguna |
+| Error | `--bg-body` | `--border-error` (#DC2626) | ninguna |
+| Disabled | `--bg-deshabilitado` | `--border-deshabilitado` | ninguna |
+
+---
+
+### Buscador
+
+Sin label. Ícono de lupa a la izquierda. En estado default: sin borde visible (única excepción). No tiene estado disabled.
+
+---
+
+## Reglas generales de composición
+
+### Color
+- Nunca hardcodear valores. Usar siempre el token semántico.
+- Los tokens de estado deben usarse en conjunto: `--bg-error` + `--border-error` + `--text-error`.
+
+### Tipografía
+- Solo los tamaños de la escala. Solo Figtree. Solo pesos 400 o 600.
+- Todo texto alineado a la izquierda, excepto números en tablas.
+
+### Espaciado
+- Todo margin, padding y gap usa un token de espaciado.
+- Separación entre título y descripción: `--spacing-none`.
+- Separación entre campos de formulario: `--spacing-md` (16px).
+- Padding interno de tarjeta: `--spacing-xl` (24px).
+
+### Señales de alerta
+
+| Patrón incorrecto | Corrección |
+|-------------------|------------|
+| `color: #334155` hardcodeado | Usar `var(--text-default)` |
+| `font-size: 15px` | Solo tamaños de la escala (14px o 16px) |
+| `margin: 10px` | Usar `var(--spacing-xs)` o `var(--spacing-sm)` |
+| `font-family: Arial` | Solo Figtree |
+| `border-radius: 4px` o `16px` | Solo 8px |
+| `text-align: center` en párrafos | Siempre a la izquierda |
+| `font-weight: 500` o `700` | Solo 400 o 600 |
+
+---
+
+## CSS Custom Properties
+
+```css
+:root {
+  --gris-50: #F8FAFC; --gris-100: #F1F5F9; --gris-200: #E2E8F0;
+  --gris-300: #CBD5E1; --gris-400: #94A3B8; --gris-500: #64748B;
+  --gris-600: #475569; --gris-700: #334155; --gris-800: #1E293B;
+  --gris-900: #0F172A; --gris-950: #020617;
+  --exito-50: #F0FDF5; --exito-500: #22C55E; --exito-600: #16A34A;
+  --error-50: #FEF2F2; --error-500: #EF4444; --error-600: #DC2626;
+  --alerta-50: #FEF9E8; --alerta-500: #EAB308; --alerta-600: #CA9A04;
+  --info-50: #EFF5FF; --info-500: #3B82F6;
+  --bg-body: #FFFFFF; --bg-surface: var(--gris-50); --bg-hover: var(--gris-100);
+  --bg-presionado: var(--gris-200); --bg-deshabilitado: var(--gris-100);
+  --bg-accion: var(--gris-600); --bg-brand: var(--gris-950);
+  --bg-exito: var(--exito-50); --bg-error: var(--error-50);
+  --bg-alerta: var(--alerta-50); --bg-info: var(--info-50);
+  --bg-modal: rgba(2, 6, 23, 0.70);
+  --text-default: var(--gris-700); --text-subtle: var(--gris-500);
+  --text-strong: var(--gris-950); --text-disabled: var(--gris-300);
+  --text-onColor: #FFFFFF; --text-info: var(--info-500);
+  --text-exito: var(--exito-600); --text-error: var(--error-600);
+  --text-alerta: var(--alerta-600);
+  --border-default: var(--gris-200); --border-strong: var(--gris-600);
+  --border-active: var(--gris-700); --border-focus: var(--gris-400);
+  --border-deshabilitado: var(--gris-100); --border-info: var(--info-500);
+  --border-exito: var(--exito-500); --border-error: var(--error-600);
+  --border-alerta: var(--alerta-500);
+  --button-error: var(--error-600); --button-excel: #166533;
+  --spacing-none: 0px; --spacing-xxs: 4px; --spacing-xs: 8px;
+  --spacing-sm: 12px; --spacing-md: 16px; --spacing-lg: 20px;
+  --spacing-xl: 24px; --spacing-2xl: 32px; --spacing-3xl: 40px;
+  --spacing-4xl: 48px; --spacing-5xl: 64px;
+  --font-family: 'Figtree', system-ui, sans-serif;
+  --radius-base: 8px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+}
+```
+
+---
+
+## Instrucción para IA
+
+Cuando uses este archivo como contexto, incluye al inicio del prompt:
+
+> "Usa el archivo DESIGN.md adjunto como fuente de verdad. Respeta todos los tokens de color, tipografía, espaciado y forma definidos. No introduzcas valores fuera del sistema. Usa HTML y CSS puro, declarando las variables en `:root`. Implementa todos los estados definidos para cada componente (default, hover, active, filled, error, disabled según corresponda)."
+```
+</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Design System v1.08</span>
+      <span>·</span>
+      <span>Figtree · HTML + CSS</span>
+      <span>·</span>
+      <span>Web &amp; Mobile</span>
+    </div>
+  </footer>
+
+  <script>
+    /* =============================================
+       COLOR UTILITIES
+       ============================================= */
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex.split('').map(c => c+c).join('');
+      const n = parseInt(hex, 16);
+      return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+    }
+
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      if (max === min) { h = s = 0; }
+      else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+          case g: h = ((b - r) / d + 2) / 6; break;
+          case b: h = ((r - g) / d + 4) / 6; break;
+        }
+      }
+      return { h: h * 360, s: s * 100, l: l * 100 };
+    }
+
+    function hslToRgb(h, s, l) {
+      h /= 360; s /= 100; l /= 100;
+      let r, g, b;
+      if (s === 0) { r = g = b = l; }
+      else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1; if (t > 1) t -= 1;
+          if (t < 1/6) return p + (q - p) * 6 * t;
+          if (t < 1/2) return q;
+          if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+        };
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+      return { r: r * 255, g: g * 255, b: b * 255 };
+    }
+
+    // Relative luminance for WCAG contrast
+    function luminance(r, g, b) {
+      const srgb = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+    }
+
+    function contrastRatio(hex1, hex2) {
+      const c1 = hexToRgb(hex1), c2 = hexToRgb(hex2);
+      const l1 = luminance(c1.r, c1.g, c1.b);
+      const l2 = luminance(c2.r, c2.g, c2.b);
+      const lighter = Math.max(l1, l2), darker = Math.min(l1, l2);
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    // Generate Tailwind-style palette from a base hex color
+    function generatePalette(hex) {
+      const { r, g, b } = hexToRgb(hex);
+      const { h, s } = rgbToHsl(r, g, b);
+
+      // Lightness targets for each step — mirrors Tailwind's distribution
+      const steps = {
+        50:  { l: 97, s: Math.min(s * 0.3, 30) },
+        100: { l: 94, s: Math.min(s * 0.4, 45) },
+        200: { l: 87, s: Math.min(s * 0.5, 55) },
+        300: { l: 76, s: Math.min(s * 0.65, 65) },
+        400: { l: 63, s: Math.min(s * 0.8, 75) },
+        500: { l: 52, s: Math.min(s * 0.9, 85) },
+        600: { l: 43, s: Math.min(s * 0.95, 90) },
+        700: { l: 34, s: Math.min(s, 92) },
+        800: { l: 25, s: Math.min(s * 0.95, 88) },
+        900: { l: 17, s: Math.min(s * 0.85, 80) },
+        950: { l: 10, s: Math.min(s * 0.75, 70) },
+      };
+
+      const palette = {};
+      for (const [step, { l, s: sv }] of Object.entries(steps)) {
+        const rgb = hslToRgb(h, sv, l);
+        palette[step] = rgbToHex(rgb.r, rgb.g, rgb.b);
+      }
+
+      // Snap the closest step to the exact input color
+      // Find which step lightness is closest to input
+      const inputHsl = rgbToHsl(r, g, b);
+      let closestStep = 500;
+      let minDiff = Infinity;
+      for (const [step, { l }] of Object.entries(steps)) {
+        const diff = Math.abs(l - inputHsl.l);
+        if (diff < minDiff) { minDiff = diff; closestStep = parseInt(step); }
+      }
+      palette[closestStep] = hex.startsWith('#') ? hex : '#' + hex;
+
+      return palette;
+    }
+
+    // Find the darkest step that passes WCAG AA (4.5:1) with white
+    function findAccessibleStep(palette) {
+      const steps = [500, 600, 700, 800, 900, 950];
+      for (const step of steps) {
+        if (contrastRatio(palette[step], '#FFFFFF') >= 4.5) return step;
+      }
+      return 950;
+    }
+
+    /* =============================================
+       BRAND TOKEN MAPPING
+       Mirrors the same logic as the grey scale:
+         hover    → brand-100
+         pressed  → brand-200
+         border   → brand-200
+         border-hover → brand-300
+         border-active → brand-400 (darker)
+         light bg → brand-50
+         brand    → closest step to input
+       ============================================= */
+
+    function buildBrandTokens(palette, baseStep) {
+      return {
+        '--brand-50':             palette[50],
+        '--brand-100':            palette[100],
+        '--brand-200':            palette[200],
+        '--brand-300':            palette[300],
+        '--brand-400':            palette[400],
+        '--brand-500':            palette[500],
+        '--brand-600':            palette[600],
+        '--brand-700':            palette[700],
+        '--brand-800':            palette[800],
+        '--brand-900':            palette[900],
+        '--brand-950':            palette[950],
+        // Semantic brand tokens
+        '--bg-brand':             palette[baseStep],
+        '--bg-brand-light':       palette[50],
+        '--bg-brand-hover':       palette[100],
+        '--bg-brand-subtle':      palette[100],
+        '--border-brand':         palette[200],
+        '--border-brand-hover':   palette[300],
+        '--border-brand-active':  palette[400],
+        '--border-brand-strong':  palette[baseStep],
+        '--text-brand':           palette[baseStep],
+        '--text-brand-subtle':    palette[400],
+      };
+    }
+
+    /* =============================================
+       UI — SYNC INPUTS
+       ============================================= */
+
+    function syncFromPicker(val) {
+      document.getElementById('brand-hex-input').value = val.replace('#', '').toUpperCase();
+    }
+
+    function syncFromHex(val) {
+      val = val.replace('#', '');
+      if (val.length === 6) {
+        try {
+          hexToRgb(val);
+          document.getElementById('brand-color-picker').value = '#' + val;
+        } catch(e) {}
+      }
+    }
+
+    /* =============================================
+       GENERATE & RENDER
+       ============================================= */
+
+    let currentPalette = null;
+    let currentTokens  = null;
+
+    function generateBrandPalette() {
+      let hex = document.getElementById('brand-hex-input').value.trim().replace('#', '');
+      if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
+        alert('Ingresa un color hexadecimal válido de 6 caracteres.');
+        return;
+      }
+      hex = '#' + hex.toUpperCase();
+
+      const palette   = generatePalette(hex);
+      const baseStep  = findAccessibleStep(palette);
+      const tokens    = buildBrandTokens(palette, baseStep);
+      const ratio     = contrastRatio(palette[baseStep], '#FFFFFF');
+
+      currentPalette = palette;
+      currentTokens  = tokens;
+
+      renderPaletteSwatches(palette, baseStep);
+      renderTokensGrid(tokens, palette, baseStep);
+      renderContrastNotice(palette, baseStep, ratio);
+      updateMdContent(tokens, palette);
+
+      document.getElementById('brand-palette-preview').style.display = 'block';
+      document.getElementById('reset-btn').style.display = 'inline-flex';
+      const applyBtn = document.getElementById('apply-btn'); if (applyBtn) applyBtn.style.display = 'inline-flex';
+    }
+
+    function renderPaletteSwatches(palette, baseStep) {
+      const wrap = document.getElementById('palette-swatches');
+      wrap.innerHTML = '';
+      const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+      steps.forEach(step => {
+        const color = palette[step];
+        const isBase = step === baseStep;
+        const textColor = contrastRatio(color, '#FFFFFF') >= 3 ? '#FFFFFF' : '#020617';
+        const el = document.createElement('div');
+        el.className = 'palette-swatch-item' + (isBase ? ' palette-swatch-base' : '');
+        el.innerHTML = `
+          <div class="swatch-color" style="background:${color};color:${textColor}">
+            ${isBase ? '<span class="swatch-base-label">base</span>' : ''}
+          </div>
+          <div class="swatch-step">${step}</div>
+          <div class="swatch-hex-val">${color}</div>
+        `;
+        wrap.appendChild(el);
+      });
+    }
+
+    function renderTokensGrid(tokens, palette, baseStep) {
+      const grid = document.getElementById('brand-tokens-grid');
+      grid.innerHTML = '';
+      const display = [
+        ['--bg-brand',            'Fondo brand (botón primario, elementos de acción)'],
+        ['--bg-brand-light',      'Fondo brand claro (fondos de tarjetas seleccionadas, states)'],
+        ['--bg-brand-hover',      'Fondo hover de elementos brand'],
+        ['--border-brand',        'Borde brand default (tabs activos, cards seleccionadas)'],
+        ['--border-brand-hover',  'Borde brand hover'],
+        ['--border-brand-active', 'Borde brand active/focus'],
+        ['--border-brand-strong', 'Borde brand con énfasis'],
+        ['--text-brand',          'Texto brand (links activos, labels de acción)'],
+        ['--text-brand-subtle',   'Texto brand tenue'],
+      ];
+      display.forEach(([token, desc]) => {
+        const color = tokens[token];
+        const el = document.createElement('div');
+        el.className = 'brand-token-row';
+        el.innerHTML = `
+          <div class="swatch-cell">
+            <span class="color-swatch" style="background:${color};border-color:${color === '#FFFFFF' || parseInt(color.replace('#',''),16) > 0xEEEEEE ? '#E2E8F0' : color}"></span>
+            <span class="mono">${token}</span>
+          </div>
+          <span class="token-color-val">${color}</span>
+          <span class="token-desc-val">${desc}</span>
+        `;
+        grid.appendChild(el);
+      });
+    }
+
+    function renderContrastNotice(palette, baseStep, ratio) {
+      const notice = document.getElementById('contrast-notice');
+      const passes = ratio >= 4.5;
+      notice.style.display = 'flex';
+      notice.className = 'callout ' + (passes ? 'success' : 'warning');
+      notice.innerHTML = `
+        <span style="font-size:14px;flex-shrink:0">${passes ? '✓' : '⚠'}</span>
+        <span>
+          <strong>Contraste botón primario con texto blanco: ${ratio.toFixed(2)}:1</strong> — 
+          ${passes
+            ? `Pasa WCAG AA (≥4.5:1). Se usa <code>${palette[baseStep]}</code> como <code>--bg-brand</code>.`
+            : `No pasa WCAG AA. Se usó el tono más oscuro disponible (<code>${palette[baseStep]}</code>). Considera ajustar el color de entrada.`}
+        </span>
+      `;
+    }
+
+    function applyBrand() {
+      if (!currentTokens || !currentPalette) { alert('Genera la paleta primero.'); return; }
+      
+      const applyBtn = document.getElementById('apply-btn');
+      applyBtn.disabled = true;
+      applyBtn.textContent = 'Guardando...';
+
+      // Send to server to update files
+      fetch('/api/apply-brand', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          palette: currentPalette,
+          tokens: currentTokens
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          // Apply to live page CSS
+          const root = document.documentElement;
+          Object.entries(currentTokens).forEach(([k,v]) => root.style.setProperty(k, v));
+          Object.keys(currentPalette || {}).forEach(step => {
+            const key = `--brand-${step}`;
+            root.style.setProperty(key, currentPalette[step]);
+          });
+
+          // Update display blocks (CSS vars and DESIGN.md shown in page)
+          updateCssVarsDisplay();
+          updateDesignMdDisplay();
+          
+          // Update Brand color swatch in Color Palette
+          const brandColor = currentTokens['--bg-brand'];
+          const brandBlock = document.getElementById('brand-swatch-block');
+          const brandHex = document.getElementById('brand-swatch-hex');
+          if (brandBlock) brandBlock.style.background = brandColor;
+          if (brandHex) brandHex.textContent = brandColor;
+          
+          // Show DESIGN.md section and update input border color
+          document.getElementById('design-md-section').style.display = 'block';
+          document.documentElement.style.setProperty('--border-brand-active', brandColor);
+
+          applyBtn.textContent = '✓ Guardado';
+          setTimeout(() => {
+            applyBtn.textContent = 'Aplicar';
+            applyBtn.disabled = false;
+          }, 2000);
+        } else {
+          alert('Error: ' + (data.error || 'Unknown error'));
+          applyBtn.textContent = 'Aplicar';
+          applyBtn.disabled = false;
+        }
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('No se pudo conectar al servidor. ¿Está ejecutando: node server.js desde la carpeta Guía/?');
+        applyBtn.textContent = 'Aplicar';
+        applyBtn.disabled = false;
+      });
+    }
+
+    function updateCssVarsDisplay() {
+      const pre = document.getElementById('css-vars');
+      if (pre) {
+        let txt = pre.innerText;
+        txt = txt.replace(/\n\s*--brand-\d+:.*;?/g, '');
+        const sem = ['--bg-brand','--bg-brand-light','--bg-brand-hover','--bg-brand-subtle','--border-brand','--border-brand-hover','--border-brand-active','--border-brand-strong','--text-brand','--text-brand-subtle'];
+        sem.forEach(k => { const re = new RegExp('\\n\\s*' + k.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&') + ':.*;?', 'g'); txt = txt.replace(re, ''); });
+
+        const insertAt = txt.lastIndexOf('}');
+        if (insertAt !== -1) {
+          const steps = [50,100,200,300,400,500,600,700,800,900,950];
+          const primitives = steps.map(s => `  --brand-${s}: ${currentPalette[s]};`).join('\n');
+          const semantics = [
+            `  --bg-brand: ${currentTokens['--bg-brand']};`,
+            `  --bg-brand-light: ${currentTokens['--bg-brand-light']};`,
+            `  --bg-brand-hover: ${currentTokens['--bg-brand-hover']};`,
+            `  --bg-brand-subtle: ${currentTokens['--bg-brand-subtle']};`,
+            `  --border-brand: ${currentTokens['--border-brand']};`,
+            `  --border-brand-hover: ${currentTokens['--border-brand-hover']};`,
+            `  --border-brand-active: ${currentTokens['--border-brand-active']};`,
+            `  --border-brand-strong: ${currentTokens['--border-brand-strong']};`,
+            `  --text-brand: ${currentTokens['--text-brand']};`,
+            `  --text-brand-subtle: ${currentTokens['--text-brand-subtle']};`
+          ].join('\n');
+          const block = '\n' + primitives + '\n' + semantics + '\n';
+          txt = txt.slice(0, insertAt) + block + txt.slice(insertAt);
+          pre.innerText = txt;
+        }
+      }
+    }
+
+    function updateDesignMdDisplay() {
+      try {
+        const mdPre = document.getElementById('md-content');
+        if (mdPre) {
+          let full = mdPre.innerText || '';
+          const fenceStart = full.indexOf('```');
+          const firstNewline = full.indexOf('\n', fenceStart >= 0 ? fenceStart : 0);
+          let inner = full;
+          let prefix = '';
+          let suffix = '';
+          if (fenceStart !== -1 && firstNewline !== -1) {
+            prefix = full.slice(0, firstNewline+1);
+            inner = full.slice(firstNewline+1);
+            const lastFence = inner.lastIndexOf('\n```');
+            if (lastFence !== -1) {
+              suffix = inner.slice(lastFence);
+              inner = inner.slice(0, lastFence);
+            } else {
+              suffix = '\n```';
+            }
+          }
+          const updatedInner = (function(innerText) {
+            let text = innerText;
+            const brandMarker = '\n---\n\n## Tokens — Color de marca (Brand)';
+            const idx = text.indexOf(brandMarker);
+            if (idx !== -1) {
+              const after = text.indexOf('\n---\n\n## ', idx + brandMarker.length);
+              text = after !== -1 ? text.slice(0, idx) + text.slice(after) : text.slice(0, idx);
+            }
+            const cssMarker = '\n## CSS Custom Properties';
+            const cssIdx = text.indexOf(cssMarker);
+            const brandSection = buildBrandMdSection(currentTokens, currentPalette);
+            if (cssIdx !== -1) {
+              text = text.slice(0, cssIdx) + brandSection + text.slice(cssIdx);
+            } else {
+              text = text + brandSection;
+            }
+            return text;
+          })(inner);
+          mdPre.innerText = prefix + updatedInner + (suffix || '\n```');
+          addOrUpdateLineNumbers(mdPre);
+        }
+      } catch (e) { console.error('Failed updating DESIGN.md display', e); }
+    }
+
+    /* =============================================
+       UPDATE DESIGN.MD CONTENT
+       ============================================= */
+
+    const MD_BRAND_PLACEHOLDER = '<!-- NO BRAND TOKENS -->';
+    let mdHasBrand = false;
+
+    function buildBrandMdSection(tokens, palette) {
+      const steps = [50,100,200,300,400,500,600,700,800,900,950];
+      const primitives = steps.map(s => `| \`--brand-${s}\` | \`${palette[s]}\` |`).join('\n');
+      const semantic = [
+        ['--bg-brand',           tokens['--bg-brand'],           'Fondo brand — botón primario, elementos de acción'],
+        ['--bg-brand-light',     tokens['--bg-brand-light'],     'Fondo brand claro — tarjetas seleccionadas, backgrounds de estados'],
+        ['--bg-brand-hover',     tokens['--bg-brand-hover'],     'Hover de elementos brand'],
+        ['--border-brand',       tokens['--border-brand'],       'Borde brand default — tabs activos, tarjetas seleccionadas'],
+        ['--border-brand-hover', tokens['--border-brand-hover'], 'Borde brand en hover'],
+        ['--border-brand-active',tokens['--border-brand-active'],'Borde brand en estado active/focus'],
+        ['--border-brand-strong',tokens['--border-brand-strong'],'Borde brand con énfasis máximo'],
+        ['--text-brand',         tokens['--text-brand'],         'Texto brand — links activos, labels de acción'],
+        ['--text-brand-subtle',  tokens['--text-brand-subtle'],  'Texto brand tenue'],
+      ].map(([t,v,d]) => `| \`${t}\` | \`${v}\` | ${d} |`).join('\n');
+
+      const cssVars = steps.map(s => `  --brand-${s}: ${palette[s]};`).join('\n') + '\n' +
+        Object.entries(tokens)
+          .filter(([k]) => !k.startsWith('--brand-'))
+          .map(([k,v]) => `  ${k}: ${v};`).join('\n');
+
+      return `
+---
+
+## Tokens — Color de marca (Brand)
+
+Este bloque se genera a partir del color primario del cliente. Reemplaza los tokens de acción en el proyecto.
+
+### Paleta brand — Primitivos
+
+| Token | Valor |
+|-------|-------|
+${primitives}
+
+### Semánticos — Brand
+
+Los tokens semánticos brand se usan **únicamente** en elementos de acción o acento: tabs activos, tarjetas seleccionadas, botón primario, bordes de foco interactivo. **No usar en contenedores genéricos, fondos de página ni texto de lectura.**
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+${semantic}
+
+### CSS — Variables brand
+
+\`\`\`css
+:root {
+${cssVars}
+}
+\`\`\`
+`;
+    }
+
+    function updateMdContent(tokens, palette) {
+      const pre = document.getElementById('md-content');
+      let text = pre.innerText;
+
+      // Remove previous brand block if exists
+      const brandMarker = '\n---\n\n## Tokens — Color de marca (Brand)';
+      const idx = text.indexOf(brandMarker);
+      if (idx !== -1) {
+        // Find next top-level ## after brand section or end
+        const after = text.indexOf('\n---\n\n## ', idx + brandMarker.length);
+        text = after !== -1
+          ? text.slice(0, idx) + text.slice(after)
+          : text.slice(0, idx);
+      }
+
+      // Append brand section before the CSS Custom Properties block
+      const cssMarker = '\n## CSS Custom Properties';
+      const cssIdx = text.indexOf(cssMarker);
+      const brandSection = buildBrandMdSection(tokens, palette);
+
+      if (cssIdx !== -1) {
+        text = text.slice(0, cssIdx) + brandSection + text.slice(cssIdx);
+      } else {
+        text = text + brandSection;
+      }
+
+      pre.innerText = text;
+      addOrUpdateLineNumbers(pre);
+    }
+
+    /* =============================================
+       RESET
+       ============================================= */
+
+    function resetBrand() {
+      // Remove brand block from md
+      const pre = document.getElementById('md-content');
+      let text = pre.innerText;
+      const brandMarker = '\n---\n\n## Tokens — Color de marca (Brand)';
+      const idx = text.indexOf(brandMarker);
+      if (idx !== -1) {
+        const after = text.indexOf('\n---\n\n## ', idx + brandMarker.length);
+        text = after !== -1 ? text.slice(0, idx) + text.slice(after) : text.slice(0, idx);
+        pre.innerText = text;
+      }
+      document.getElementById('brand-palette-preview').style.display = 'none';
+      document.getElementById('reset-btn').style.display = 'none';
+      document.getElementById('brand-hex-input').value = '2563EB';
+      document.getElementById('brand-color-picker').value = '#2563EB';
+      currentPalette = null;
+      currentTokens  = null;
+    }
+
+    /* =============================================
+       DOWNLOAD / COPY MD
+       ============================================= */
+
+    function downloadMd() {
+      const content = document.getElementById('md-content').innerText
+        .replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      const blob = new Blob([content], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'DESIGN.md';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function copyMd(btn) {
+      const content = document.getElementById('md-content').innerText
+        .replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      navigator.clipboard.writeText(content).then(() => {
+        btn.textContent = '¡Copiado!';
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-secondary');
+        setTimeout(() => {
+          btn.textContent = 'Copiar contenido';
+          btn.classList.remove('btn-primary');
+          btn.classList.add('btn-secondary');
+        }, 2000);
+      });
+    }
+
+    function copyBlock(btn) {
+      const sibling = btn.nextElementSibling;
+      let pre = null;
+      if (!sibling) pre = btn.closest('.code-block')?.querySelector('pre');
+      else pre = sibling.tagName === 'PRE' ? sibling : sibling.querySelector('pre') || btn.closest('.code-block')?.querySelector('pre');
+      if (!pre) return;
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        btn.textContent = '¡Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    function addOrUpdateLineNumbers(pre) {
+      if (!pre) return;
+      const lines = pre.innerText.split('\n');
+      const parent = pre.parentNode;
+      // If already wrapped, update numbers
+      if (parent && parent.classList && parent.classList.contains('pre-wrap')) {
+        const ol = parent.querySelector('.line-gutter ol');
+        if (ol) {
+          ol.innerHTML = lines.map((_, i) => `<li>${i+1}</li>`).join('');
+        }
+        return;
+      }
+
+      // Wrap pre in .pre-wrap and add gutter
+      const wrap = document.createElement('div');
+      wrap.className = 'pre-wrap';
+      const gutter = document.createElement('div');
+      gutter.className = 'line-gutter';
+      const ol = document.createElement('ol');
+      ol.innerHTML = lines.map((_, i) => `<li>${i+1}</li>`).join('');
+      gutter.appendChild(ol);
+      // Insert wrapper
+      parent.insertBefore(wrap, pre);
+      wrap.appendChild(gutter);
+      wrap.appendChild(pre);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.code-block pre').forEach(p => addOrUpdateLineNumbers(p));
+    });
+  </script>
+</body>
+</html>

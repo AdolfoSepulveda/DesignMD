@@ -1,0 +1,14 @@
+{
+  "name": "guia-design-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Herramienta para generar DESIGN.md y aplicar color de marca en vivo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "generate": "node scripts/generate_design_md.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
