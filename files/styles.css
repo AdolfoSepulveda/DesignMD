@@ -139,7 +139,7 @@ code {
   font-size: 12px;
   background: var(--gris-100);
   border: 1px solid var(--border-default);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   padding: 1px 5px;
   color: var(--text-strong);
 }
@@ -182,7 +182,7 @@ code {
   color: var(--text-subtle);
   background: none;
   border: none;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
@@ -277,7 +277,7 @@ code {
 }
 .swatch-card {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--bg-body);
 }
@@ -328,7 +328,7 @@ code {
 .palette-swatch-item {
   background: var(--bg-body);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -346,7 +346,7 @@ code {
   background: rgba(0,0,0,0.2);
   color: white;
   padding: 2px 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-size: 11px;
 }
 .palette-swatch-item .swatch-step,
@@ -370,7 +370,7 @@ code {
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   background: var(--bg-body);
 }
 
@@ -392,7 +392,7 @@ code {
   }
 }
 .brand-token-row .swatch-cell { display:flex; align-items:center; gap:var(--spacing-sm); }
-.brand-token-row .color-swatch { width: 36px; height: 36px; border-radius: var(--radius-base); border:1px solid var(--border-default); }
+.brand-token-row .color-swatch { width: 36px; height: 36px; border-radius: var(--radius-sm); border:1px solid var(--border-default); }
 .brand-token-row .mono { font-family: 'Courier New', monospace; font-size: 12px; color: var(--text-strong); }
 .brand-token-row .token-color-val { font-family: 'Courier New', monospace; color: var(--text-subtle); }
 .brand-token-row .token-desc-val { color: var(--text-subtle); font-size: 13px; }
@@ -402,7 +402,7 @@ code {
    ============================================= */
 .type-meta-block {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: var(--spacing-xl);
 }
@@ -433,7 +433,7 @@ code {
 }
 .type-scale {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .type-row {
@@ -478,7 +478,7 @@ code {
   border-collapse: collapse;
   font-size: 13px;
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .spec-table th {
@@ -534,7 +534,7 @@ code {
 .elevation-swatch {
   flex-shrink: 0;
   width: 48px; height: 48px;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   background: var(--bg-body);
   border: 1px solid var(--border-default);
 }
@@ -565,7 +565,7 @@ code {
 }
 .guideline-col {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .guideline-header {
@@ -617,7 +617,7 @@ code {
 }
 .component-demo {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   padding: var(--spacing-xl);
   background: var(--bg-surface);
 }
@@ -642,7 +642,7 @@ code {
 .code-copy-btn { color: var(--text-default); }
 .code-copy-btn svg { width: 16px; height: 16px; display: inline-block; vertical-align: middle; stroke: currentColor; fill: none; }
   border: none;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   font-family: var(--font-family);
   font-weight: 600;
   cursor: pointer;
@@ -691,7 +691,7 @@ code {
   color: var(--text-default);
   background: var(--bg-body);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   padding: var(--spacing-sm) var(--spacing-sm);
   outline: none;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -745,14 +745,14 @@ code {
   appearance: none;
   border: 1px solid var(--border-default);
   background: var(--bg-body);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
 }
 .brand-input-row .hex-input-wrap {
   display: inline-flex;
   align-items: center;
   background: var(--bg-body);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   padding: 4px 8px;
 }
 .brand-input-row .hex-input {
@@ -773,7 +773,7 @@ code {
   align-items: flex-start;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   border: 1px solid;
   font-size: 14px;
   line-height: 1.5;
@@ -781,7 +781,7 @@ code {
 .alert-icon {
   flex-shrink: 0;
   width: 20px; height: 20px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px;
   font-weight: 600;
@@ -823,7 +823,7 @@ code {
 }
 .onboarding-card {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   background: var(--bg-surface);
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-sm);
@@ -845,7 +845,7 @@ code {
   align-items: center;
   padding: var(--spacing-xxs) var(--spacing-sm);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   background: var(--bg-body);
   color: var(--text-default);
   font-size: 12px;
@@ -866,7 +866,7 @@ code {
 }
 .upload-tile,
 .upload-thumb {
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   min-height: 112px;
   display: flex;
   align-items: center;
@@ -893,7 +893,7 @@ code {
   display: inline-flex;
   align-items: center;
   padding: var(--spacing-xxs) var(--spacing-xs);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   background: var(--bg-body);
   border: 1px solid var(--border-default);
   color: var(--text-default);
@@ -902,7 +902,7 @@ code {
 }
 .activity-card {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   background: var(--bg-body);
   padding: var(--spacing-md);
   margin-top: var(--spacing-lg);
@@ -917,7 +917,7 @@ code {
   display: inline-flex;
   align-items: center;
   padding: var(--spacing-xxs) var(--spacing-xs);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xs);
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
   color: var(--text-default);
@@ -938,7 +938,7 @@ code {
 .photo-thumb {
   width: 72px;
   height: 72px;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   background: var(--bg-hover);
   border: 1px solid var(--border-default);
 }
@@ -974,7 +974,7 @@ code {
   position: relative;
   background: linear-gradient(180deg, rgba(2,6,23,0.98), rgba(6,10,22,0.96));
   color: #E6F0FA;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   padding: calc(var(--spacing-xl) + 4px);
   font-family: 'Courier New', monospace;
   font-size: 13px;
@@ -1002,7 +1002,7 @@ code {
   background: rgba(255,255,255,0.03);
   color: var(--gris-300);
   border: 1px solid rgba(255,255,255,0.03);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
   font-family: var(--font-family);
   font-size: 12px;
@@ -1041,7 +1041,7 @@ code {
    ============================================= */
 .quick-ref {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: var(--spacing-xl);
 }
@@ -1071,7 +1071,7 @@ code {
 .quick-ref-item:nth-last-child(-n+2) { border-bottom: none; }
 .qr-dot {
   width: 14px; height: 14px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 .qr-key {
@@ -1093,7 +1093,7 @@ code {
 .prompts-list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
 .prompt-item {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .prompt-label {
