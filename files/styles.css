@@ -65,6 +65,12 @@
   /* Botones */
   --button-error: var(--error-600);
   --button-excel: #166533;
+  /* Primary button dynamic states */
+  --button-primary: #020617;
+  --button-primary-hover: #1E293B;
+  --button-primary-pressed: #334155;
+  --button-primary-disabled-bg: #F1F5F9;
+  --button-primary-disabled-text: #CBD5E1;
 
   /* Espaciado */
   --spacing-none: 0px;
@@ -82,7 +88,7 @@
   /* Tipografía */
   --font-family: 'Figtree', system-ui, sans-serif;
 
-  /* Forma */
+  /* Forma - Border Radius */
   --radius-none: 0px;
   --radius-xs: 4px;
   --radius-sm: 8px;
@@ -96,27 +102,27 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
 
-  --brand-50: #f7f8f6;
-  --brand-100: #f0f3ed;
-  --brand-200: #dde6d6;
-  --brand-300: #c1d5ae;
-  --brand-400: #9fc67b;
-  --brand-500: #82bb4e;
-  --brand-600: #669C35;
-  --brand-700: #55812c;
-  --brand-800: #3e5e22;
-  --brand-900: #2a3e19;
-  --brand-950: #192310;
-  --bg-brand: #55812c;
-  --bg-brand-light: #f7f8f6;
-  --bg-brand-hover: #f0f3ed;
-  --bg-brand-subtle: #f0f3ed;
-  --border-brand: #dde6d6;
-  --border-brand-hover: #c1d5ae;
-  --border-brand-active: #9fc67b;
-  --border-brand-strong: #55812c;
-  --text-brand: #55812c;
-  --text-brand-subtle: #9fc67b;
+  --brand-50: #f5f7f9;
+  --brand-100: #ebeef5;
+  --brand-200: #d0d9ec;
+  --brand-300: #a1b5e3;
+  --brand-400: #6289df;
+  --brand-500: #2563EB;
+  --brand-600: #174dc4;
+  --brand-700: #0f3c9f;
+  --brand-800: #0d2d72;
+  --brand-900: #0d204a;
+  --brand-950: #0a1429;
+  --bg-brand: #2563EB;
+  --bg-brand-light: #f5f7f9;
+  --bg-brand-hover: #ebeef5;
+  --bg-brand-subtle: #ebeef5;
+  --border-brand: #d0d9ec;
+  --border-brand-hover: #a1b5e3;
+  --border-brand-active: #6289df;
+  --border-brand-strong: #2563EB;
+  --text-brand: #2563EB;
+  --text-brand-subtle: #6289df;
 
 }
 
@@ -637,38 +643,60 @@ code {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
-  
-/* Iconoir copy button styling */
-.code-copy-btn { color: var(--text-default); }
-.code-copy-btn svg { width: 16px; height: 16px; display: inline-block; vertical-align: middle; stroke: currentColor; fill: none; }
   border: none;
   border-radius: var(--radius-sm);
   font-family: var(--font-family);
   font-weight: 600;
   cursor: pointer;
-  transition: filter 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  transition: background 0.15s ease, opacity 0.15s ease;
   white-space: nowrap;
 }
 .btn-lg { font-size: 16px; padding: var(--spacing-md) var(--spacing-lg); }
 .btn-md { font-size: 14px; padding: var(--spacing-sm) var(--spacing-md); }
-.btn-sm { font-size: 12px; padding: var(--spacing-xxs) var(--spacing-xs); }
+.btn-sm { font-size: 12px; padding: var(--spacing-xs) var(--spacing-xs); gap: var(--spacing-xxs); }
 
-.btn-primary   { background: var(--bg-brand);     color: var(--text-onColor); }
+.btn-primary   { background: var(--button-primary);     color: var(--text-onColor); border: none; }
 .btn-secondary { background: var(--bg-body);       color: var(--text-default); border: 1px solid var(--border-default); }
-.btn-error     { background: var(--button-error);  color: var(--text-onColor); }
-.btn-excel     { background: var(--button-excel);  color: var(--text-onColor); }
+.btn-link      { background: transparent; color: var(--text-default); border: none; }
+.btn-error     { background: #DC2626;  color: var(--text-onColor); border: none; }
+.btn-excel     { background: #1D6F42;  color: var(--text-onColor); border: none; }
 
-.btn-primary:hover   { filter: brightness(1.15); }
+.btn-primary:hover   { background: var(--button-primary-hover); }
 .btn-secondary:hover { background: var(--bg-hover); box-shadow: var(--shadow-sm); }
-.btn-error:hover     { filter: brightness(1.1); }
-.btn-excel:hover     { filter: brightness(1.1); }
+.btn-link:hover      { background: var(--bg-hover); }
+.btn-error:hover     { background: #B91C1C; }
+.btn-excel:hover     { background: #1D5E3B; }
 
-.btn-primary:active   { filter: brightness(0.88); }
+.btn-primary:active   { background: var(--button-primary-pressed); }
 .btn-secondary:active { background: var(--bg-presionado); }
-.btn-error:active     { filter: brightness(0.88); }
-.btn-excel:active     { filter: brightness(0.88); }
+.btn-link:active      { background: var(--bg-presionado); color: #020617; }
+.btn-error:active     { background: #991B1B; }
+.btn-excel:active     { background: #1A4D32; }
 
-.btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.btn-primary:disabled { background: var(--button-primary-disabled-bg); color: var(--button-primary-disabled-text); opacity: 1; pointer-events: none; cursor: not-allowed; }
+.btn-secondary:disabled { background: transparent; color: #CBD5E1; border-color: #F1F5F9; opacity: 1; pointer-events: none; cursor: not-allowed; }
+.btn-link:disabled { background: transparent; color: #CBD5E1; opacity: 1; pointer-events: none; cursor: not-allowed; }
+.btn-error:disabled { background: #FEF2F2; color: #CBD5E1; opacity: 1; pointer-events: none; cursor: not-allowed; }
+.btn-excel:disabled { background: #1A4D32; color: #CBD5E1; opacity: 1; pointer-events: none; cursor: not-allowed; }
+
+/* Button preview state classes */
+.btn-preview-hover { pointer-events: none; }
+.btn-preview-pressed { pointer-events: none; }
+
+/* Button variant section spacing */
+.component-demo h3 { margin-top: var(--spacing-2xl) !important; }
+
+.btn-preview-hover.btn-primary { background: var(--button-primary-hover); }
+.btn-preview-hover.btn-secondary { background: var(--bg-hover); box-shadow: var(--shadow-sm); }
+.btn-preview-hover.btn-link { background: var(--bg-hover); }
+.btn-preview-hover.btn-error { background: #B91C1C; }
+.btn-preview-hover.btn-excel { background: #1D5E3B; }
+
+.btn-preview-pressed.btn-primary { background: var(--button-primary-pressed); }
+.btn-preview-pressed.btn-secondary { background: var(--bg-presionado); }
+.btn-preview-pressed.btn-link { background: var(--bg-presionado); color: #020617; }
+.btn-preview-pressed.btn-error { background: #991B1B; }
+.btn-preview-pressed.btn-excel { background: #1A4D32; }
 
 /* Inputs */
 .inputs-grid {

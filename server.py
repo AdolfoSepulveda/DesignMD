@@ -25,6 +25,8 @@ class BrandHandler(SimpleHTTPRequestHandler):
                 # Update DESIGN.md
                 design_md = self._build_design_md(tokens, palette)
                 design_path = os.path.join(os.path.dirname(__file__), 'files', 'DESIGN.md')
+                if not os.path.exists(os.path.dirname(design_path)):
+                    design_path = 'DESIGN.md'
                 with open(design_path, 'w', encoding='utf-8') as f:
                     f.write(design_md)
                 
@@ -47,13 +49,6 @@ class BrandHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        # CORS headers
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
-        
         # Serve files
         if self.path == '/':
             self.path = '/index.html'
@@ -67,7 +62,13 @@ class BrandHandler(SimpleHTTPRequestHandler):
         try:
             with open(file_path, 'rb') as f:
                 content = f.read()
+                # CORS headers
+                self.send_response(200)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+                self.send_header('Access-Control-Allow-Headers', 'Content-Type')
                 self.send_header('Content-Type', self._get_content_type(file_path))
+                self.end_headers()
                 self.wfile.write(content)
         except FileNotFoundError:
             self.send_error(404, 'Not Found')
@@ -164,6 +165,8 @@ Este archivo define los tokens, componentes y reglas de decisión del Design Sys
 
     def _update_styles_css(self, palette, tokens):
         css_path = os.path.join(os.path.dirname(__file__), 'files', 'styles.css')
+        if not os.path.exists(css_path):
+            css_path = 'styles.css'
         try:
             with open(css_path, 'r', encoding='utf-8') as f:
                 css = f.read()
@@ -235,10 +238,9 @@ Este archivo define los tokens, componentes y reglas de decisión del Design Sys
 
 if __name__ == '__main__':
     files_dir = os.path.join(os.path.dirname(__file__), 'files')
-    os.chdir(files_dir)
     
-    port = 3000
-    server = HTTPServer(('localhost', port), BrandHandler)
+    port = 3001
+    server = HTTPServer(('0.0.0.0', port), BrandHandler)
     
     print(f'\n🚀 Design System server running at http://localhost:{port}\n')
     print(f'Open http://localhost:{port} in your browser.')

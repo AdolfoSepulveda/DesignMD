@@ -331,17 +331,58 @@
           <div class="subsection-label">Border Radius</div>
           <table class="spec-table">
             <thead>
-              <tr><th>Elemento</th><th>Valor</th><th>Preview</th></tr>
+              <tr><th>Token</th><th>Valor</th><th>Uso</th><th>Preview</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td>Todos los componentes</td>
+                <td class="mono">--radius-none</td>
+                <td>0px</td>
+                <td>Tablas, separadores, elementos que fusionan con el borde</td>
+                <td><div class="radius-preview" style="border-radius:0px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-xs</td>
+                <td>4px</td>
+                <td>Tags, badges, tooltips, popovers</td>
+                <td><div class="radius-preview" style="border-radius:4px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-sm</td>
                 <td>8px</td>
+                <td>Botones, inputs, selects, chips</td>
                 <td><div class="radius-preview" style="border-radius:8px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-md</td>
+                <td>12px</td>
+                <td>Tarjetas, panels, componentes principales</td>
+                <td><div class="radius-preview" style="border-radius:12px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-lg</td>
+                <td>16px</td>
+                <td>Modales, drawers, cards destacadas</td>
+                <td><div class="radius-preview" style="border-radius:16px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-xl</td>
+                <td>24px</td>
+                <td>Hero cards, banners, secciones destacadas</td>
+                <td><div class="radius-preview" style="border-radius:24px"></div></td>
+              </tr>
+              <tr>
+                <td class="mono">--radius-full</td>
+                <td>999px</td>
+                <td>Avatares, pills, toggles, icon buttons</td>
+                <td><div class="radius-preview" style="border-radius:999px"></div></td>
               </tr>
             </tbody>
           </table>
-          <p class="spec-note">Un único valor de border-radius en todo el sistema. No introducir otros valores.</p>
+          <p class="spec-note">
+            El sistema define una escala progresiva de radios de esquina. Cada token corresponde a un contexto de uso específico y no debe intercambiarse arbitrariamente.
+            <br><br>
+            <strong>Regla de anidamiento:</strong> Cuando un elemento con border-radius contiene otro, el valor del hijo debe ser menor que el del padre.
+          </p>
 
           <div class="subsection-label" style="margin-top:2rem">Elevation</div>
           <div class="elevation-list">
@@ -382,13 +423,14 @@
           <div class="guideline-header do-header">✓ Do</div>
           <ul class="guideline-list">
             <li>Usar siempre tokens semánticos (<code>--text-default</code>, <code>--bg-surface</code>) en los componentes. Los primitivos solo existen para construir los semánticos.</li>
-            <li>Aplicar <code>border-radius: 8px</code> a todos los componentes sin excepción: inputs, botones, tarjetas, badges, modales.</li>
+            <li>Usar la escala de border-radius según el contexto: <code>--radius-sm</code> para botones, <code>--radius-md</code> para tarjetas, <code>--radius-lg</code> para modales.</li>
             <li>Usar <code>--spacing-none</code> (0px) entre un título y su descripción inmediata para crear agrupación visual compacta.</li>
             <li>Usar los tres tokens de estado en conjunto: <code>--bg-error</code> + <code>--border-error</code> + <code>--text-error</code> siempre juntos.</li>
             <li>Mantener todo el texto alineado a la izquierda. Solo los montos y números en tablas van a la derecha.</li>
             <li>Limitar a un botón Primario por vista. Si hay dos acciones importantes, una es Secundaria.</li>
             <li>Usar <code>--spacing-md</code> (16px) como separación estándar entre campos de formulario.</li>
             <li>Usar el botón Excel <em>exclusivamente</em> para exportar a Excel. Ninguna otra acción de descarga.</li>
+            <li>Respetar la regla de anidamiento: el border-radius de un elemento hijo debe ser menor que el del padre.</li>
           </ul>
         </div>
         <div class="guideline-col dont-col">
@@ -398,10 +440,11 @@
             <li>Nunca usar <code>font-size</code> con valores fuera de la escala: 13px, 15px, 17px, 19px no existen en el sistema.</li>
             <li>No usar <code>font-weight</code> distinto a 400 o 600. Los pesos 500, 700 no están en el sistema.</li>
             <li>No usar <code>margin</code> o <code>padding</code> con valores arbitrarios como 10px, 15px, 22px. Solo tokens de espaciado.</li>
-            <li>No usar <code>border-radius</code> distinto a 8px. Ni 4px, ni 12px, ni 16px.</li>
+            <li>No usar valores numéricos directos para border-radius. Usar siempre los tokens definidos.</li>
             <li>No usar <code>text-align: center</code> en párrafos o cuerpos de texto.</li>
             <li>No usar el botón Error para acciones de cancelación. Cancelar siempre es Secundario.</li>
             <li>No usar font-family distinto a Figtree. Sin excepciones.</li>
+            <li>No anidar elementos con border-radius mayor o igual que el del contenedor padre.</li>
           </ul>
         </div>
       </div>
@@ -416,30 +459,134 @@
       <div class="component-block">
         <div class="component-label">Botones — Variantes y tamaños</div>
         <div class="component-demo">
+          <h3 style="font-size: 12px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-xs); margin-top: 0;">Primario</h3>
           <div class="demo-row">
-            <button class="btn btn-primary btn-lg">Botón lg</button>
-            <button class="btn btn-primary btn-md">Botón md</button>
-            <button class="btn btn-primary btn-sm">Botón sm</button>
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Default</span>
+            <button class="btn btn-primary btn-lg">Button</button>
+            <button class="btn btn-primary btn-md">Button</button>
+            <button class="btn btn-primary btn-sm">Button</button>
           </div>
           <div class="demo-row">
-            <button class="btn btn-secondary btn-lg">Botón lg</button>
-            <button class="btn btn-secondary btn-md">Botón md</button>
-            <button class="btn btn-secondary btn-sm">Botón sm</button>
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Hover</span>
+            <button class="btn btn-primary btn-lg btn-preview-hover">Button</button>
+            <button class="btn btn-primary btn-md btn-preview-hover">Button</button>
+            <button class="btn btn-primary btn-sm btn-preview-hover">Button</button>
           </div>
           <div class="demo-row">
-            <button class="btn btn-error btn-lg">Eliminar</button>
-            <button class="btn btn-error btn-md">Eliminar</button>
-            <button class="btn btn-error btn-sm">Eliminar</button>
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Pressed</span>
+            <button class="btn btn-primary btn-lg btn-preview-pressed">Button</button>
+            <button class="btn btn-primary btn-md btn-preview-pressed">Button</button>
+            <button class="btn btn-primary btn-sm btn-preview-pressed">Button</button>
           </div>
           <div class="demo-row">
-            <button class="btn btn-excel btn-lg">Descargar Excel</button>
-            <button class="btn btn-excel btn-md">Descargar Excel</button>
-            <button class="btn btn-excel btn-sm">Excel</button>
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Disabled</span>
+            <button class="btn btn-primary btn-lg" disabled>Button</button>
+            <button class="btn btn-primary btn-md" disabled>Button</button>
+            <button class="btn btn-primary btn-sm" disabled>Button</button>
+          </div>
+
+          <h3 style="font-size: 12px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-xs); margin-top: var(--spacing-lg);">Secundario</h3>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Default</span>
+            <button class="btn btn-secondary btn-lg">Button</button>
+            <button class="btn btn-secondary btn-md">Button</button>
+            <button class="btn btn-secondary btn-sm">Button</button>
           </div>
           <div class="demo-row">
-            <button class="btn btn-primary btn-md" disabled>Deshabilitado</button>
-            <button class="btn btn-secondary btn-md" disabled>Deshabilitado</button>
-            <button class="btn btn-error btn-md" disabled>Deshabilitado</button>
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Hover</span>
+            <button class="btn btn-secondary btn-lg btn-preview-hover">Button</button>
+            <button class="btn btn-secondary btn-md btn-preview-hover">Button</button>
+            <button class="btn btn-secondary btn-sm btn-preview-hover">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Pressed</span>
+            <button class="btn btn-secondary btn-lg btn-preview-pressed">Button</button>
+            <button class="btn btn-secondary btn-md btn-preview-pressed">Button</button>
+            <button class="btn btn-secondary btn-sm btn-preview-pressed">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Disabled</span>
+            <button class="btn btn-secondary btn-lg" disabled>Button</button>
+            <button class="btn btn-secondary btn-md" disabled>Button</button>
+            <button class="btn btn-secondary btn-sm" disabled>Button</button>
+          </div>
+
+          <h3 style="font-size: 12px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-xs); margin-top: var(--spacing-lg);">Link</h3>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Default</span>
+            <button class="btn btn-link btn-lg">Button</button>
+            <button class="btn btn-link btn-md">Button</button>
+            <button class="btn btn-link btn-sm">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Hover</span>
+            <button class="btn btn-link btn-lg btn-preview-hover">Button</button>
+            <button class="btn btn-link btn-md btn-preview-hover">Button</button>
+            <button class="btn btn-link btn-sm btn-preview-hover">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Pressed</span>
+            <button class="btn btn-link btn-lg btn-preview-pressed">Button</button>
+            <button class="btn btn-link btn-md btn-preview-pressed">Button</button>
+            <button class="btn btn-link btn-sm btn-preview-pressed">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Disabled</span>
+            <button class="btn btn-link btn-lg" disabled>Button</button>
+            <button class="btn btn-link btn-md" disabled>Button</button>
+            <button class="btn btn-link btn-sm" disabled>Button</button>
+          </div>
+
+          <h3 style="font-size: 12px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-xs); margin-top: var(--spacing-lg);">Destructivo</h3>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Default</span>
+            <button class="btn btn-error btn-lg">Button</button>
+            <button class="btn btn-error btn-md">Button</button>
+            <button class="btn btn-error btn-sm">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Hover</span>
+            <button class="btn btn-error btn-lg btn-preview-hover">Button</button>
+            <button class="btn btn-error btn-md btn-preview-hover">Button</button>
+            <button class="btn btn-error btn-sm btn-preview-hover">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Pressed</span>
+            <button class="btn btn-error btn-lg btn-preview-pressed">Button</button>
+            <button class="btn btn-error btn-md btn-preview-pressed">Button</button>
+            <button class="btn btn-error btn-sm btn-preview-pressed">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Disabled</span>
+            <button class="btn btn-error btn-lg" disabled>Button</button>
+            <button class="btn btn-error btn-md" disabled>Button</button>
+            <button class="btn btn-error btn-sm" disabled>Button</button>
+          </div>
+
+          <h3 style="font-size: 12px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--spacing-xs); margin-top: var(--spacing-lg);">Excel</h3>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Default</span>
+            <button class="btn btn-excel btn-lg">Button</button>
+            <button class="btn btn-excel btn-md">Button</button>
+            <button class="btn btn-excel btn-sm">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Hover</span>
+            <button class="btn btn-excel btn-lg btn-preview-hover">Button</button>
+            <button class="btn btn-excel btn-md btn-preview-hover">Button</button>
+            <button class="btn btn-excel btn-sm btn-preview-hover">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Pressed</span>
+            <button class="btn btn-excel btn-lg btn-preview-pressed">Button</button>
+            <button class="btn btn-excel btn-md btn-preview-pressed">Button</button>
+            <button class="btn btn-excel btn-sm btn-preview-pressed">Button</button>
+          </div>
+          <div class="demo-row">
+            <span style="font-size: 12px; color: var(--text-subtle); width: 80px;">Disabled</span>
+            <button class="btn btn-excel btn-lg" disabled>Button</button>
+            <button class="btn btn-excel btn-md" disabled>Button</button>
+            <button class="btn btn-excel btn-sm" disabled>Button</button>
           </div>
         </div>
       </div>
@@ -595,8 +742,14 @@
   /* Tipografía */
   --font-family: 'Figtree', system-ui, sans-serif;
 
-  /* Forma */
-  --radius-base: 8px;
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
 
   /* Sombras */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -667,7 +820,7 @@
       <div class="code-block md-block">
         <button class="copy-btn" onclick="copyBlock(this)">Copiar</button>
         <pre id="md-content">```md
-      # Design System — DESIGN.md
+# Design System — DESIGN.md
 > Guía de referencia para herramientas de IA y agentes de código
 
 **Tema:** claro (light mode)
@@ -676,6 +829,7 @@
 **Stack:** HTML + CSS puro (sin frameworks). Variables CSS en `:root`.
 
 Este archivo define los tokens, componentes y reglas de decisión del Design System. Cualquier pantalla, componente o modificación generada por IA debe respetar estrictamente estos valores. No se deben introducir colores, tamaños de texto, espaciados ni border-radius fuera de los definidos aquí.
+
 
 ---
 
@@ -693,7 +847,7 @@ El sistema usa dos capas de color: **primitivos** (la paleta base) y **semántic
 | `--bg-presionado` | `#E2E8F0` | gris-200 | Estado active/pressed de elementos interactivos |
 | `--bg-deshabilitado` | `#F1F5F9` | gris-100 | Fondo de campos y botones en estado disabled |
 | `--bg-accion` | `#475569` | gris-600 | Fondos de acciones secundarias específicas |
-| `--bg-brand` | `#020617` | gris-950 | Botón primario, elementos de marca |
+| `--bg-brand` | `#2563EB` | brand-600 | Botón primario, elementos de marca |
 | `--bg-exito` | `#F0FDF5` | exito-50 | Fondo de alertas y badges de éxito |
 | `--bg-error` | `#FEF2F2` | error-50 | Fondo de alertas y mensajes de error |
 | `--bg-alerta` | `#FEF9E8` | alerta-50 | Fondo de alertas de advertencia |
@@ -734,6 +888,11 @@ El sistema usa dos capas de color: **primitivos** (la paleta base) y **semántic
 |-------|-------|-----|
 | `--button-error` | `#DC2626` | Fondo de botón destructivo/error |
 | `--button-excel` | `#166533` | Fondo de botón Excel (exportar) |
+| `--button-primary` | `#020617` | Fondo de botón primario (default) |
+| `--button-primary-hover` | `#1E293B` | Fondo de botón primario (hover) |
+| `--button-primary-pressed` | `#334155` | Fondo de botón primario (pressed) |
+| `--button-primary-disabled-bg` | `#F1F5F9` | Fondo de botón primario (disabled) |
+| `--button-primary-disabled-text` | `#CBD5E1` | Texto de botón primario (disabled) |
 
 ### Primitivos — Grises
 
@@ -769,13 +928,79 @@ El sistema usa dos capas de color: **primitivos** (la paleta base) y **semántic
 
 ---
 
+## Tokens — Color de marca (Brand)
+
+Este bloque se genera a partir del color primario del cliente. Reemplaza los tokens de acción en el proyecto.
+
+### Paleta brand — Primitivos
+
+| Token | Valor |
+|-------|-------|
+| `--brand-50` | `#f5f7f9` |
+| `--brand-100` | `#ebeef5` |
+| `--brand-200` | `#d0d9ec` |
+| `--brand-300` | `#a1b5e3` |
+| `--brand-400` | `#6289df` |
+| `--brand-500` | `#2563EB` |
+| `--brand-600` | `#174dc4` |
+| `--brand-700` | `#0f3c9f` |
+| `--brand-800` | `#0d2d72` |
+| `--brand-900` | `#0d204a` |
+| `--brand-950` | `#0a1429` |
+
+### Semánticos — Brand
+
+Los tokens semánticos brand se usan **únicamente** en elementos de acción o acento: tabs activos, tarjetas seleccionadas, botón primario, bordes de foco interactivo. **No usar en contenedores genéricos, fondos de página ni texto de lectura.**
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `--bg-brand` | `#2563EB` | Fondo brand — botón primario, elementos de acción |
+| `--bg-brand-light` | `#f5f7f9` | Fondo brand claro — tarjetas seleccionadas, backgrounds de estados |
+| `--bg-brand-hover` | `#ebeef5` | Hover de elementos brand |
+| `--border-brand` | `#d0d9ec` | Borde brand default — tabs activos, tarjetas seleccionadas |
+| `--border-brand-hover` | `#a1b5e3` | Borde brand en hover |
+| `--border-brand-active` | `#6289df` | Borde brand en estado active/focus |
+| `--border-brand-strong` | `#2563EB` | Borde brand con énfasis máximo |
+| `--text-brand` | `#2563EB` | Texto brand — links activos, labels de acción |
+| `--text-brand-subtle` | `#6289df` | Texto brand tenue |
+
+### CSS — Variables brand
+
+```css
+:root {
+  --brand-50: #f5f7f9;
+  --brand-100: #ebeef5;
+  --brand-200: #d0d9ec;
+  --brand-300: #a1b5e3;
+  --brand-400: #6289df;
+  --brand-500: #2563EB;
+  --brand-600: #174dc4;
+  --brand-700: #0f3c9f;
+  --brand-800: #0d2d72;
+  --brand-900: #0d204a;
+  --brand-950: #0a1429;
+  --bg-brand: #2563EB;
+  --bg-brand-light: #f5f7f9;
+  --bg-brand-hover: #ebeef5;
+  --bg-brand-subtle: #ebeef5;
+  --border-brand: #d0d9ec;
+  --border-brand-hover: #a1b5e3;
+  --border-brand-active: #6289df;
+  --border-brand-strong: #2563EB;
+  --text-brand: #2563EB;
+  --text-brand-subtle: #6289df;
+}
+```
+
+---
+
 ## Tokens — Tipografía
 
 **Fuente:** Figtree — importar desde Google Fonts.
 **Nunca usar otra fuente.** No se permiten tamaños intermedios ni pesos distintos a los definidos.
 
 ```html
-&lt;link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" /&gt;
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
 ```
 
 ### Escala tipográfica
@@ -827,20 +1052,78 @@ Usar siempre un token. Nunca valores arbitrarios como `10px`, `15px`, `22px`.
 
 ---
 
-## Tokens — Forma y Elevación
+## Tokens — Border Radius
 
-### Border radius
+El sistema define una escala progresiva de radios de esquina vinculada a tokens de diseño. Cada token corresponde a un contexto de uso específico y no debe intercambiarse arbitrariamente. Nunca usar valores numéricos directamente — siempre referenciar el token correspondiente.
 
-Un único valor de border-radius en todo el sistema: **8px** (`--radius-base`).
-No usar 4px, 12px, 16px ni border-radius: 9999px salvo que el componente lo especifique.
-
-### Sombras
+### Escala
 
 | Token | Valor | Uso |
 |-------|-------|-----|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Hover de inputs y componentes interactivos |
-| `--shadow-md` | `0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04)` | Tarjetas, paneles elevados |
-| `--shadow-lg` | `0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04)` | Modales, dropdowns |
+| `--radius-none` | `0px` | Tablas, separadores, líneas divisorias, imágenes a sangre, elementos que deben fusionarse con el borde del contenedor padre |
+| `--radius-xs` | `4px` | Tags, badges de estado, chips de filtro, tooltips, popovers |
+| `--radius-sm` | `8px` | Botones primarios, secundarios y de texto (regla sin excepción), chips de selección, etiquetas de acción, inputs y selects |
+| `--radius-md` | `12px` | Tarjetas (cards), modales, paneles, cards de contenido, componentes principales de la interfaz |
+| `--radius-lg` | `16px` | Cards destacadas, drawers laterales (esquinas superiores), ventanas emergentes, componentes que requieren mayor suavidad |
+| `--radius-xl` | `24px` | Hero cards, banners, secciones de bienvenida, elementos de marketing destacados |
+| `--radius-full` | `999px` | Pills, avatares, badges circulares, toggles, icon buttons, elementos visualmente circulares o semicirculares |
+
+### Border radius por componente
+
+- **Botones:** siempre `--radius-sm` (8px) sin excepción. Los icon buttons son la única excepción: usar `--radius-full` (999px).
+- **Inputs y selects:** `--radius-sm` (8px) cuando forman parte de un formulario estándar.
+- **Tarjetas (cards):** `--radius-md` (12px).
+- **Modales y drawers:** `--radius-lg` (16px) en esquinas superiores.
+- **Tooltips y popovers:** `--radius-xs` (4px).
+- **Avatares:** siempre `--radius-full` (999px).
+- **Skeleton loaders:** replicar exactamente el border radius del componente que reemplazan.
+
+### Regla de anidamiento
+
+Cuando un elemento con border radius contiene otro elemento con border radius, el valor del hijo debe ser menor que el del padre: radius_hijo = radius_padre - padding_contenedor.
+
+Si el resultado es negativo o cero, los elementos internos no llevan border radius. Ejemplo: una card con `--radius-md` (12px) y `padding: 16px` — los elementos internos no deben llevar border radius.
+
+**Excepción de imágenes dentro de contenedores redondeados:**
+- Imagen en esquina superior: `--radius-md` en esquinas superiores, `--radius-none` en las inferiores.
+- Imagen de fondo completa: mismo radius del contenedor en todas las esquinas.
+- Prohibido aplicar border radius directamente a imágenes que no estén dentro de un contenedor redondeado.
+
+### Relación padding-radius
+
+A mayor padding interno, mayor debe ser el border radius para mantener la proporción visual.
+
+| Tamaño de componente | Padding | Radius |
+|----------------------|---------|--------|
+| Pequeño (sm) | `--spacing-xs` (8px) | `--radius-xs` (4px) |
+| Mediano (md) | `--spacing-sm` (12px) | `--radius-sm` (8px) |
+| Grande (lg+) | `--spacing-md` (16px) o más | `--radius-md` (12px) o más |
+
+No usar `--radius-full` en componentes con padding mayor a `--spacing-md`, ya que genera una proporción visual inconsistente con el resto del sistema.
+
+### CSS Custom Properties
+
+```css
+:root {
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+}
+```
+
+---
+
+## Tokens — Sombras
+
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `--shadow-sm` | `0 1px 2px rgba(0, 0, 0, 0.05)` | Hover de inputs y componentes interactivos |
+| `--shadow-md` | `0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04)` | Tarjetas, paneles elevados |
+| `--shadow-lg` | `0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)` | Modales, dropdowns |
 
 ---
 
@@ -852,28 +1135,68 @@ No usar 4px, 12px, 16px ni border-radius: 9999px salvo que el componente lo espe
 
 | Variante | Fondo | Texto | Borde | Uso |
 |----------|-------|-------|-------|-----|
-| Primario | `--bg-brand` (#020617) | `--text-onColor` (#fff) | ninguno | Acción principal. Máximo 1 por vista. |
+| Primario | `--bg-brand` (#2563EB) | `--text-onColor` (#fff) | ninguno | Acción principal. Máximo 1 por vista. |
 | Secundario | `--bg-body` (#fff) | `--text-default` (#334155) | `1px solid --border-default` | Acciones de apoyo o cancelación. |
 | Link | transparente | `--text-default` | ninguno | Acciones terciarias, navegación contextual. |
 | Error / Destructivo | `--button-error` (#DC2626) | `--text-onColor` (#fff) | ninguno | Acciones irreversibles: eliminar, deshabilitar. |
 | Excel | `--button-excel` (#166533) | `--text-onColor` (#fff) | ninguno | Exclusivo para exportar a Excel. |
 
-#### Tamaños
+#### Tamaños (corregidos)
 
-| Tamaño | Font-size | Padding vertical | Padding horizontal | Gap |
-|--------|-----------|------------------|--------------------|-----|
-| sm | 12px | `--spacing-xxs` (4px) | `--spacing-xs` (8px) | `--spacing-xxs` (4px) |
-| md | 14px | `--spacing-sm` (12px) | `--spacing-md` (16px) | `--spacing-xs` (8px) |
-| lg | 16px | `--spacing-md` (16px) | `--spacing-lg` (20px) | `--spacing-xs` (8px) |
+| Tamaño | Font-size | Padding vertical | Padding horizontal | Gap | Border-radius |
+|--------|-----------|------------------|--------------------|-----|---------------|
+| sm | 12px | 8px | 8px | 4px | 8px |
+| md | 14px | 12px | 12px | 8px | 8px |
+| lg | 16px | 12px | 16px | 8px | 8px |
 
-Border-radius: 8px en todos los tamaños y variantes.
+#### Estados por variante — valores exactos
 
-#### Estados
+**Primario**
 
-- **Primario** — Hover: brightness(1.15). Active: brightness(0.88). Disabled: opacity 0.5.
-- **Secundario** — Hover: `--bg-hover` + `--shadow-sm`. Active: `--bg-presionado`. Disabled: opacity 0.5.
-- **Error** — Hover: brightness(1.1). Active: brightness(0.88). Disabled: opacity 0.5.
-- **Excel** — Hover: brightness(1.1). Active: brightness(0.88). Disabled: opacity 0.5.
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | `#2563EB` | `#FFFFFF` |
+| Hover | `#174dc4` | `#FFFFFF` |
+| Pressed | `#0f3c9f` | `#FFFFFF` |
+| Disabled | `#F1F5F9` | `#CBD5E1` |
+
+Cuando se aplica un color de marca, los estados hover y pressed siguen la regla de pasos de paleta: hover = un paso más oscuro que el base, pressed = dos pasos más oscuro. Si el color base es muy oscuro (900+), se invierte: hover aclara un paso, pressed aclara dos.
+
+**Secundario**
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | `#FFFFFF` | `#334155` |
+| Hover | `#F1F5F9` | `#334155` |
+| Pressed | `#E2E8F0` | `#334155` |
+| Disabled | transparente | `#CBD5E1` |
+
+**Link**
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | transparente | `#334155` |
+| Hover | `#F1F5F9` | `#334155` |
+| Pressed | `#E2E8F0` | `#020617` |
+| Disabled | transparente | `#CBD5E1` |
+
+**Error / Destructivo**
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | `#DC2626` | `#FFFFFF` |
+| Hover | `#B91C1C` | `#FFFFFF` |
+| Pressed | `#991B1B` | `#FFFFFF` |
+| Disabled | `#FEF2F2` | `#CBD5E1` |
+
+**Excel**
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | `#1D6F42` | `#FFFFFF` |
+| Hover | `#1D5E3B` | `#FFFFFF` |
+| Pressed | `#1A4D32` | `#FFFFFF` |
+| Disabled | `#1A4D32` | `#CBD5E1` |
 
 #### Reglas de jerarquía
 
@@ -892,7 +1215,7 @@ Border-radius: 8px en todos los tamaños y variantes.
 - **Placeholder:** small (14px/400), `--text-subtle`.
 - **Texto ingresado:** small (14px/400), `--text-default`.
 - **Texto de ayuda:** extra-small (12px/400), `--text-subtle`. Bajo el campo.
-- **Fondo:** `--bg-body`. **Borde:** `1px solid --border-default`, border-radius 8px.
+- **Fondo:** `--bg-body`. **Borde:** `1px solid --border-default`, border-radius `--radius-sm` (8px).
 
 #### Estados
 
@@ -900,7 +1223,7 @@ Border-radius: 8px en todos los tamaños y variantes.
 |--------|-------|-------|--------|
 | Default | `--bg-body` | `--border-default` | ninguna |
 | Hover | `--bg-body` | `--border-default` (sin cambio) | `--shadow-sm` |
-| Active | `--bg-body` | `--border-active` (#334155) | ninguna |
+| Active | `--bg-body` | `--border-brand-active` (#6289df) | ninguna |
 | Filled | `--bg-body` | `--border-default` | ninguna |
 | Error | `--bg-body` | `--border-error` (#DC2626) | ninguna |
 | Disabled | `--bg-deshabilitado` | `--border-deshabilitado` | ninguna |
@@ -910,6 +1233,123 @@ Border-radius: 8px en todos los tamaños y variantes.
 ### Buscador
 
 Sin label. Ícono de lupa a la izquierda. En estado default: sin borde visible (única excepción). No tiene estado disabled.
+
+---
+
+## Estados interactivos
+
+Esta sección define el comportamiento visual de todos los elementos interactivos del sistema en sus distintos estados. Estas reglas aplican globalmente y deben respetarse en cualquier componente generado.
+
+---
+
+### Texto brand interactivo
+
+`--text-brand` usa el paso base de la paleta brand. En estados interactivos, referenciar directamente el primitivo un o dos pasos más oscuro (`--brand-700` en hover, `--brand-800` en pressed). Esta es la única excepción permitida al uso de primitivos directamente en componentes.
+
+---
+
+### Filas de tabla
+
+| Estado | Fondo |
+|--------|-------|
+| Default | `--bg-body` |
+| Hover | `--bg-hover` (`--gris-100`) |
+| Seleccionada (check activo) | `--brand-100` |
+
+Solo cambia el fondo. El texto y los bordes no cambian en ningún estado.
+
+---
+
+### Tabs
+
+| Estado | Fondo | Texto | Borde |
+|--------|-------|-------|-------|
+| Inactivo (default) | transparente | `--text-subtle` | ninguno |
+| Hover | `--bg-hover` | `--text-default` | ninguno |
+| Activo | transparente | `--text-brand` | `--border-brand-strong` (completo) |
+
+El tab activo no tiene fondo. Solo texto y borde en color brand.
+
+---
+
+### Tarjetas
+
+#### Tarjeta navegable
+
+Se usa cuando la tarjeta lleva a otra pantalla o abre un detalle.
+
+| Estado | Fondo | Borde |
+|--------|-------|-------|
+| Default | `--bg-body` o `--bg-surface` | `--border-default` |
+| Hover | `--bg-hover` | `--border-default` |
+| Pressed | `--bg-presionado` | `--border-default` |
+
+#### Tarjeta seleccionable
+
+Se usa cuando la tarjeta puede seleccionarse (tipo checkbox, elegir un plan o ítem de lista).
+
+| Estado | Fondo | Borde |
+|--------|-------|-------|
+| Default | `--bg-body` o `--bg-surface` | `--border-default` |
+| Hover | `--brand-50` | `--border-brand` |
+| Seleccionada | `--brand-100` | `--border-brand-strong` |
+
+---
+
+### Checkbox
+
+| Estado | Fondo | Borde | Ícono |
+|--------|-------|-------|-------|
+| Default | `--bg-body` | `--border-default` | ninguno |
+| Hover | `--bg-hover` | `--border-active` | ninguno |
+| Activo | `--bg-brand` | ninguno | check de Iconoir en `--text-onColor` |
+| Disabled | `--bg-deshabilitado` | `--border-deshabilitado` | ninguno |
+
+---
+
+### Radio button
+
+| Estado | Fondo | Borde | Círculo interno |
+|--------|-------|-------|-----------------|
+| Default | `--bg-body` | `--border-default` | ninguno |
+| Hover | `--bg-hover` | `--border-active` | ninguno |
+| Activo | `--bg-body` | `--border-default` | `--bg-brand` |
+| Disabled | `--bg-deshabilitado` | `--border-deshabilitado` | ninguno |
+
+---
+
+### Toggle
+
+| Estado | Fondo | Borde | Círculo interno |
+|--------|-------|-------|-----------------|
+| Default (inactivo) | `--bg-surface` | `--border-default` | `--bg-body` |
+| Hover | `--bg-hover` | `--border-default` | `--bg-body` |
+| Activo | `--bg-brand` | `--border-default` | `--bg-body` |
+| Disabled | `--bg-deshabilitado` | `--border-deshabilitado` | `--bg-body` |
+
+---
+
+### Dropdowns e ítems de menú
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | transparente | `--text-subtle` |
+| Hover | `--bg-hover` | `--text-default` |
+| Pressed | `--bg-presionado` | `--text-default` |
+
+---
+
+### Sidebar / menú lateral
+
+Pendiente de revisión en Figma. Comportamiento provisional:
+
+| Estado | Fondo | Texto |
+|--------|-------|-------|
+| Default | transparente | `--text-subtle` |
+| Hover | `--bg-hover` | `--text-default` |
+| Activo | `--bg-hover` | `--text-default` |
+
+> ⚠️ Este componente está pendiente de actualización para incorporar color brand en el estado activo.
 
 ---
 
@@ -937,7 +1377,7 @@ Sin label. Ícono de lupa a la izquierda. En estado default: sin borde visible (
 | `font-size: 15px` | Solo tamaños de la escala (14px o 16px) |
 | `margin: 10px` | Usar `var(--spacing-xs)` o `var(--spacing-sm)` |
 | `font-family: Arial` | Solo Figtree |
-| `border-radius: 4px` o `16px` | Solo 8px |
+| `border-radius: 4px` o `16px` | Usar tokens de radius definidos |
 | `text-align: center` en párrafos | Siempre a la izquierda |
 | `font-weight: 500` o `700` | Solo 400 o 600 |
 
@@ -947,40 +1387,125 @@ Sin label. Ícono de lupa a la izquierda. En estado default: sin borde visible (
 
 ```css
 :root {
-  --gris-50: #F8FAFC; --gris-100: #F1F5F9; --gris-200: #E2E8F0;
-  --gris-300: #CBD5E1; --gris-400: #94A3B8; --gris-500: #64748B;
-  --gris-600: #475569; --gris-700: #334155; --gris-800: #1E293B;
-  --gris-900: #0F172A; --gris-950: #020617;
-  --exito-50: #F0FDF5; --exito-500: #22C55E; --exito-600: #16A34A;
-  --error-50: #FEF2F2; --error-500: #EF4444; --error-600: #DC2626;
-  --alerta-50: #FEF9E8; --alerta-500: #EAB308; --alerta-600: #CA9A04;
-  --info-50: #EFF5FF; --info-500: #3B82F6;
-  --bg-body: #FFFFFF; --bg-surface: var(--gris-50); --bg-hover: var(--gris-100);
-  --bg-presionado: var(--gris-200); --bg-deshabilitado: var(--gris-100);
-  --bg-accion: var(--gris-600); --bg-brand: var(--gris-950);
-  --bg-exito: var(--exito-50); --bg-error: var(--error-50);
-  --bg-alerta: var(--alerta-50); --bg-info: var(--info-50);
+  /* Primitivos — Grises */
+  --gris-50: #F8FAFC;
+  --gris-100: #F1F5F9;
+  --gris-200: #E2E8F0;
+  --gris-300: #CBD5E1;
+  --gris-400: #94A3B8;
+  --gris-500: #64748B;
+  --gris-600: #475569;
+  --gris-700: #334155;
+  --gris-800: #1E293B;
+  --gris-900: #0F172A;
+  --gris-950: #020617;
+
+  /* Primitivos — Estados */
+  --exito-50: #F0FDF5;
+  --exito-500: #22C55E;
+  --exito-600: #16A34A;
+  --error-50: #FEF2F2;
+  --error-500: #EF4444;
+  --error-600: #DC2626;
+  --alerta-50: #FEF9E8;
+  --alerta-500: #EAB308;
+  --alerta-600: #CA9A04;
+  --info-50: #EFF5FF;
+  --info-500: #3B82F6;
+
+  /* Semánticos — Background */
+  --bg-body: #FFFFFF;
+  --bg-surface: var(--gris-50);
+  --bg-hover: var(--gris-100);
+  --bg-presionado: var(--gris-200);
+  --bg-deshabilitado: var(--gris-100);
+  --bg-accion: var(--gris-600);
+  --bg-brand: #2563EB;
+  --bg-exito: var(--exito-50);
+  --bg-error: var(--error-50);
+  --bg-alerta: var(--alerta-50);
+  --bg-info: var(--info-50);
   --bg-modal: rgba(2, 6, 23, 0.70);
-  --text-default: var(--gris-700); --text-subtle: var(--gris-500);
-  --text-strong: var(--gris-950); --text-disabled: var(--gris-300);
-  --text-onColor: #FFFFFF; --text-info: var(--info-500);
-  --text-exito: var(--exito-600); --text-error: var(--error-600);
+
+  /* Semánticos — Texto */
+  --text-default: var(--gris-700);
+  --text-subtle: var(--gris-500);
+  --text-strong: var(--gris-950);
+  --text-disabled: var(--gris-300);
+  --text-onColor: #FFFFFF;
+  --text-info: var(--info-500);
+  --text-exito: var(--exito-600);
+  --text-error: var(--error-600);
   --text-alerta: var(--alerta-600);
-  --border-default: var(--gris-200); --border-strong: var(--gris-600);
-  --border-active: var(--gris-700); --border-focus: var(--gris-400);
-  --border-deshabilitado: var(--gris-100); --border-info: var(--info-500);
-  --border-exito: var(--exito-500); --border-error: var(--error-600);
+
+  /* Semánticos — Bordes */
+  --border-default: var(--gris-200);
+  --border-strong: var(--gris-600);
+  --border-active: var(--gris-700);
+  --border-focus: var(--gris-400);
+  --border-deshabilitado: var(--gris-100);
+  --border-info: var(--info-500);
+  --border-exito: var(--exito-500);
+  --border-error: var(--error-600);
   --border-alerta: var(--alerta-500);
-  --button-error: var(--error-600); --button-excel: #166533;
-  --spacing-none: 0px; --spacing-xxs: 4px; --spacing-xs: 8px;
-  --spacing-sm: 12px; --spacing-md: 16px; --spacing-lg: 20px;
-  --spacing-xl: 24px; --spacing-2xl: 32px; --spacing-3xl: 40px;
-  --spacing-4xl: 48px; --spacing-5xl: 64px;
+
+  /* Semánticos — Botones */
+  --button-error: var(--error-600);
+  --button-excel: #166533;
+
+  /* Brand — Primitivos */
+  --brand-50: #f5f7f9;
+  --brand-100: #ebeef5;
+  --brand-200: #d0d9ec;
+  --brand-300: #a1b5e3;
+  --brand-400: #6289df;
+  --brand-500: #2563EB;
+  --brand-600: #174dc4;
+  --brand-700: #0f3c9f;
+  --brand-800: #0d2d72;
+  --brand-900: #0d204a;
+  --brand-950: #0a1429;
+
+  /* Brand — Semánticos */
+  --bg-brand-light: #f5f7f9;
+  --bg-brand-hover: #ebeef5;
+  --bg-brand-subtle: #ebeef5;
+  --border-brand: #d0d9ec;
+  --border-brand-hover: #a1b5e3;
+  --border-brand-active: #6289df;
+  --border-brand-strong: #2563EB;
+  --text-brand: #2563EB;
+  --text-brand-subtle: #6289df;
+
+  /* Espaciado */
+  --spacing-none: 0px;
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 40px;
+  --spacing-4xl: 48px;
+  --spacing-5xl: 64px;
+
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+  /* Tipografía */
   --font-family: 'Figtree', system-ui, sans-serif;
-  --radius-base: 8px;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
 }
 ```
 
@@ -991,6 +1516,7 @@ Sin label. Ícono de lupa a la izquierda. En estado default: sin borde visible (
 Cuando uses este archivo como contexto, incluye al inicio del prompt:
 
 > "Usa el archivo DESIGN.md adjunto como fuente de verdad. Respeta todos los tokens de color, tipografía, espaciado y forma definidos. No introduzcas valores fuera del sistema. Usa HTML y CSS puro, declarando las variables en `:root`. Implementa todos los estados definidos para cada componente (default, hover, active, filled, error, disabled según corresponda)."
+
 ```
 </pre>
       </div>
@@ -1141,6 +1667,25 @@ Cuando uses este archivo como contexto, incluye al inicio del prompt:
        ============================================= */
 
     function buildBrandTokens(palette, baseStep) {
+      // Calculate primary button colors based on brand palette
+      // Default: use the base brand step (the accessible one)
+      // Hover: one step darker (or lighter if base is already darkest)
+      // Pressed: two steps darker (or lighter if base is already darkest)
+      const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+      const currentIndex = steps.indexOf(baseStep);
+      
+      // Find hover step (one darker if possible, else one lighter)
+      let hoverIndex = currentIndex + 1;
+      if (hoverIndex >= steps.length) hoverIndex = currentIndex - 1;
+      
+      // Find pressed step (two darker if possible, else one/two lighter)
+      let pressedIndex = currentIndex + 2;
+      if (pressedIndex >= steps.length) pressedIndex = Math.max(0, currentIndex - 2);
+      
+      const buttonPrimary = palette[baseStep];
+      const buttonPrimaryHover = palette[steps[hoverIndex]];
+      const buttonPrimaryPressed = palette[steps[pressedIndex]];
+      
       return {
         '--brand-50':             palette[50],
         '--brand-100':            palette[100],
@@ -1164,6 +1709,12 @@ Cuando uses este archivo como contexto, incluye al inicio del prompt:
         '--border-brand-strong':  palette[baseStep],
         '--text-brand':           palette[baseStep],
         '--text-brand-subtle':    palette[400],
+        // Primary button tokens
+        '--button-primary':       buttonPrimary,
+        '--button-primary-hover': buttonPrimaryHover,
+        '--button-primary-pressed': buttonPrimaryPressed,
+        '--button-primary-disabled-bg': '#F1F5F9',
+        '--button-primary-disabled-text': '#CBD5E1',
       };
     }
 
@@ -1207,6 +1758,14 @@ Cuando uses este archivo como contexto, incluye al inicio del prompt:
 
       currentPalette = palette;
       currentTokens  = tokens;
+
+      // Apply tokens immediately for preview
+      const root = document.documentElement;
+      Object.entries(tokens).forEach(([k,v]) => root.style.setProperty(k, v));
+      Object.keys(palette || {}).forEach(step => {
+        const key = `--brand-${step}`;
+        root.style.setProperty(key, palette[step]);
+      });
 
       renderPaletteSwatches(palette, baseStep);
       renderTokensGrid(tokens, palette, baseStep);
@@ -1285,65 +1844,62 @@ Cuando uses este archivo como contexto, incluye al inicio del prompt:
       `;
     }
 
-    function applyBrand() {
+    async function applyBrand() {
       if (!currentTokens || !currentPalette) { alert('Genera la paleta primero.'); return; }
       
       const applyBtn = document.getElementById('apply-btn');
       applyBtn.disabled = true;
       applyBtn.textContent = 'Guardando...';
 
-      // Send to server to update files
-      fetch('/api/apply-brand', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          palette: currentPalette,
-          tokens: currentTokens
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.ok) {
-          // Apply to live page CSS
-          const root = document.documentElement;
-          Object.entries(currentTokens).forEach(([k,v]) => root.style.setProperty(k, v));
-          Object.keys(currentPalette || {}).forEach(step => {
-            const key = `--brand-${step}`;
-            root.style.setProperty(key, currentPalette[step]);
-          });
+      try {
+        // Send request to server to save files
+        const response = await fetch('/api/apply-brand', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            palette: currentPalette,
+            tokens: currentTokens
+          })
+        });
 
-          // Update display blocks (CSS vars and DESIGN.md shown in page)
-          updateCssVarsDisplay();
-          updateDesignMdDisplay();
-          
-          // Update Brand color swatch in Color Palette
-          const brandColor = currentTokens['--bg-brand'];
-          const brandBlock = document.getElementById('brand-swatch-block');
-          const brandHex = document.getElementById('brand-swatch-hex');
-          if (brandBlock) brandBlock.style.background = brandColor;
-          if (brandHex) brandHex.textContent = brandColor;
-          
-          // Show DESIGN.md section and update input border color
-          document.getElementById('design-md-section').style.display = 'block';
-          document.documentElement.style.setProperty('--border-brand-active', brandColor);
+        if (!response.ok) throw new Error('Error al guardar');
+        await response.json();
 
-          applyBtn.textContent = '✓ Guardado';
-          setTimeout(() => {
-            applyBtn.textContent = 'Aplicar';
-            applyBtn.disabled = false;
-          }, 2000);
-        } else {
-          alert('Error: ' + (data.error || 'Unknown error'));
+        // Apply to live page CSS (already done, but just to make sure)
+        const root = document.documentElement;
+        Object.entries(currentTokens).forEach(([k,v]) => root.style.setProperty(k, v));
+        Object.keys(currentPalette || {}).forEach(step => {
+          const key = `--brand-${step}`;
+          root.style.setProperty(key, currentPalette[step]);
+        });
+
+        // Update display blocks (CSS vars and DESIGN.md shown in page)
+        updateCssVarsDisplay();
+        updateDesignMdDisplay();
+        
+        // Update Brand color swatch in Color Palette
+        const brandColor = currentTokens['--bg-brand'];
+        const brandBlock = document.getElementById('brand-swatch-block');
+        const brandHex = document.getElementById('brand-swatch-hex');
+        if (brandBlock) brandBlock.style.background = brandColor;
+        if (brandHex) brandHex.textContent = brandColor;
+        
+        // Show DESIGN.md section and update input border color
+        document.getElementById('design-md-section').style.display = 'block';
+        document.documentElement.style.setProperty('--border-brand-active', brandColor);
+
+        applyBtn.textContent = '✓ Guardado';
+        setTimeout(() => {
           applyBtn.textContent = 'Aplicar';
           applyBtn.disabled = false;
-        }
-      })
-      .catch(err => {
-        console.error('Error:', err);
-        alert('No se pudo conectar al servidor. ¿Está ejecutando: node server.js desde la carpeta Guía/?');
+        }, 2000);
+      } catch (e) {
+        alert('Error al guardar: ' + e.message);
         applyBtn.textContent = 'Aplicar';
         applyBtn.disabled = false;
-      });
+      }
     }
 
     function updateCssVarsDisplay() {
@@ -1529,6 +2085,20 @@ ${cssVars}
       document.getElementById('reset-btn').style.display = 'none';
       document.getElementById('brand-hex-input').value = '2563EB';
       document.getElementById('brand-color-picker').value = '#2563EB';
+      
+      // Reset all inline styles back to original CSS
+      const root = document.documentElement;
+      const originalVars = [
+        '--brand-50', '--brand-100', '--brand-200', '--brand-300', '--brand-400',
+        '--brand-500', '--brand-600', '--brand-700', '--brand-800', '--brand-900', '--brand-950',
+        '--bg-brand', '--bg-brand-light', '--bg-brand-hover', '--bg-brand-subtle',
+        '--border-brand', '--border-brand-hover', '--border-brand-active', '--border-brand-strong',
+        '--text-brand', '--text-brand-subtle',
+        '--button-primary', '--button-primary-hover', '--button-primary-pressed',
+        '--button-primary-disabled-bg', '--button-primary-disabled-text'
+      ];
+      originalVars.forEach(varName => root.style.removeProperty(varName));
+      
       currentPalette = null;
       currentTokens  = null;
     }

@@ -9,7 +9,7 @@ const path = require('path');
 const url = require('url');
 
 const filesDir = path.join(__dirname, 'files');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 function buildBrandMdSection(tokens, palette) {
   const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
