@@ -23,10 +23,10 @@ class BrandHandler(SimpleHTTPRequestHandler):
                 tokens = data.get('tokens', {})
                 
                 # Update DESIGN.md
-                design_md = self._build_design_md(tokens, palette)
                 design_path = os.path.join(os.path.dirname(__file__), 'files', 'DESIGN.md')
-                if not os.path.exists(os.path.dirname(design_path)):
-                    design_path = 'DESIGN.md'
+                with open(design_path, 'r', encoding='utf-8') as f:
+                    existing_md = f.read()
+                design_md = self._update_design_md_with_brand(existing_md, tokens, palette)
                 with open(design_path, 'w', encoding='utf-8') as f:
                     f.write(design_md)
                 
@@ -100,7 +100,7 @@ class BrandHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(data).encode('utf-8'))
 
-    def _build_design_md(self, tokens, palette):
+    def _build_brand_section(self, tokens, palette):
         steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
         primitives = '\n'.join([f'| `--brand-{s}` | `{palette[str(s)]}` |' for s in steps])
         
@@ -120,7 +120,7 @@ class BrandHandler(SimpleHTTPRequestHandler):
         css_vars = '\n'.join([f'  --brand-{s}: {palette[str(s)]};' for s in steps])
         css_vars += '\n' + '\n'.join([f'  {k}: {v};' for k, v in tokens.items() if not k.startswith('--brand-')])
         
-        brand_section = f"""
+        return f"""
 ---
 
 ## Tokens — Color de marca (Brand)
@@ -149,19 +149,21 @@ Los tokens semánticos brand se usan **únicamente** en elementos de acción o a
 }}
 ```
 """
+
+    def _update_design_md_with_brand(self, existing_md, tokens, palette):
+        brand_section = self._build_brand_section(tokens, palette)
+        brand_start_marker = "## Tokens — Color de marca (Brand)"
+        brand_end_marker = "---"
         
-        header = """# Design System — DESIGN.md
-> Guía de referencia para herramientas de IA y agentes de código
-
-**Tema:** claro (light mode)
-**Fuente principal:** Figtree
-**Plataformas:** Web (desktop + mobile)
-**Stack:** HTML + CSS puro (sin frameworks). Variables CSS en `:root`.
-
-Este archivo define los tokens, componentes y reglas de decisión del Design System. Cualquier pantalla, componente o modificación generada por IA debe respetar estrictamente estos valores. No se deben introducir colores, tamaños de texto, espaciados ni border-radius fuera de los definidos aquí.
-
-"""
-        return header + brand_section
+        start_idx = existing_md.find(brand_start_marker)
+        if start_idx == -1:
+            return existing_md + "\n" + brand_section
+        
+        # Encuentra el siguiente "---" después de la sección brand
+        next_sep_idx = existing_md.find(brand_end_marker, start_idx + len(brand_start_marker))
+        end_idx = len(existing_md) if next_sep_idx == -1 else next_sep_idx
+        
+        return existing_md[:start_idx] + brand_section + existing_md[end_idx:]
 
     def _update_styles_css(self, palette, tokens):
         css_path = os.path.join(os.path.dirname(__file__), 'files', 'styles.css')

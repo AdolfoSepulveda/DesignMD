@@ -62,22 +62,19 @@ ${cssVars}
 `;
 }
 
-function buildFullDesignMd(tokens, palette) {
-  const header = `# Design System — DESIGN.md
-> Guía de referencia para herramientas de IA y agentes de código
-
-**Tema:** claro (light mode)
-**Fuente principal:** Figtree
-**Plataformas:** Web (desktop + mobile)
-**Stack:** HTML + CSS puro (sin frameworks). Variables CSS en \`:root\`.
-
-Este archivo define los tokens, componentes y reglas de decisión del Design System. Cualquier pantalla, componente o modificación generada por IA debe respetar estrictamente estos valores. No se deben introducir colores, tamaños de texto, espaciados ni border-radius fuera de los definidos aquí.
-
-`;
-
+function updateDesignMdWithBrand(existingMd, tokens, palette) {
   const brandSection = buildBrandMdSection(tokens, palette);
-
-  return header + brandSection;
+  // Reemplaza la sección "## Tokens — Color de marca (Brand)"
+  const brandStartMarker = "## Tokens — Color de marca (Brand)";
+  const brandEndMarker = "---"; // Busca el siguiente separador --- después de la sección brand
+  const startIndex = existingMd.indexOf(brandStartMarker);
+  if (startIndex === -1) {
+    return existingMd + "\n" + brandSection;
+  }
+  // Busca el siguiente --- después de la sección
+  const nextSeparatorIndex = existingMd.indexOf(brandEndMarker, startIndex + brandStartMarker.length);
+  const endIndex = nextSeparatorIndex === -1 ? existingMd.length : nextSeparatorIndex;
+  return existingMd.substring(0, startIndex) + brandSection + existingMd.substring(endIndex);
 }
 
 function updateStylesCss(palette, tokens) {
@@ -160,7 +157,8 @@ const server = http.createServer((req, res) => {
         
         // Update DESIGN.md
         const mdPath = path.join(filesDir, 'DESIGN.md');
-        const mdContent = buildFullDesignMd(tokens, palette);
+        let existingMd = fs.readFileSync(mdPath, 'utf8');
+        const mdContent = updateDesignMdWithBrand(existingMd, tokens, palette);
         fs.writeFileSync(mdPath, mdContent, 'utf8');
         
         // Update styles.css
