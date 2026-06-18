@@ -1934,48 +1934,17 @@ Cuando uses este archivo como contexto, incluye al inicio del prompt:
     }
 
     function updateDesignMdDisplay() {
-      try {
-        const mdPre = document.getElementById('md-content');
-        if (mdPre) {
-          let full = mdPre.innerText || '';
-          const fenceStart = full.indexOf('```');
-          const firstNewline = full.indexOf('\n', fenceStart >= 0 ? fenceStart : 0);
-          let inner = full;
-          let prefix = '';
-          let suffix = '';
-          if (fenceStart !== -1 && firstNewline !== -1) {
-            prefix = full.slice(0, firstNewline+1);
-            inner = full.slice(firstNewline+1);
-            const lastFence = inner.lastIndexOf('\n```');
-            if (lastFence !== -1) {
-              suffix = inner.slice(lastFence);
-              inner = inner.slice(0, lastFence);
-            } else {
-              suffix = '\n```';
-            }
-          }
-          const updatedInner = (function(innerText) {
-            let text = innerText;
-            const brandMarker = '\n---\n\n## Tokens — Color de marca (Brand)';
-            const idx = text.indexOf(brandMarker);
-            if (idx !== -1) {
-              const after = text.indexOf('\n---\n\n## ', idx + brandMarker.length);
-              text = after !== -1 ? text.slice(0, idx) + text.slice(after) : text.slice(0, idx);
-            }
-            const cssMarker = '\n## CSS Custom Properties';
-            const cssIdx = text.indexOf(cssMarker);
-            const brandSection = buildBrandMdSection(currentTokens, currentPalette);
-            if (cssIdx !== -1) {
-              text = text.slice(0, cssIdx) + brandSection + text.slice(cssIdx);
-            } else {
-              text = text + brandSection;
-            }
-            return text;
-          })(inner);
-          mdPre.innerText = prefix + updatedInner + (suffix || '\n```');
-          addOrUpdateLineNumbers(mdPre);
-        }
-      } catch (e) { console.error('Failed updating DESIGN.md display', e); }
+      // Fetch the authoritative DESIGN.md from the server and display it.
+      // This ensures we show the exact file bytes and preserve newline characters.
+      const mdPre = document.getElementById('md-content');
+      if (!mdPre) return;
+      fetch('/DESIGN.md').then(async resp => {
+        if (!resp.ok) throw new Error('Failed fetching DESIGN.md');
+        const text = await resp.text();
+        // Ensure we place the raw markdown inside the pre as innerText to keep newlines
+        mdPre.innerText = text;
+        addOrUpdateLineNumbers(mdPre);
+      }).catch(e => console.error('Failed updating DESIGN.md display', e));
     }
 
     /* =============================================

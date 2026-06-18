@@ -90,7 +90,8 @@ class BrandHandler(SimpleHTTPRequestHandler):
         elif path.endswith('.json'):
             return 'application/json'
         elif path.endswith('.md'):
-            return 'text/markdown'
+            # Serve markdown as plain text to preserve raw newlines in the browser
+            return 'text/plain; charset=utf-8'
         return 'text/plain'
 
     def _send_json_response(self, code, data):

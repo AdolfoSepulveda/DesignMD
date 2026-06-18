@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 function hexToRgb(hex) {
   hex = hex.replace('#', '');
@@ -51,9 +52,17 @@ for (let i = 0; i < rawArgs.length; i++) {
 const hex = argv.hex || argv.h || '2563EB';
 const out = argv.out || argv.o || path.join(__dirname, '..', 'files', 'DESIGN.md');
 const applyCss = argv['apply-css'] || argv.applyCss || argv['apply-css'] === true || argv.applyCss === true;
+const eolArg = (argv.eol || argv.e || 'auto').toString().toLowerCase();
+const resolvedEol = eolArg === 'auto' ? os.EOL : (eolArg === 'crlf' || eolArg === 'cr' ? '\r\n' : '\n');
 try{
   const content = buildFullDesignMd(hex);
-  fs.writeFileSync(out, content, 'utf8');
+  // Normalize line endings only if user explicitly requested an EOL (not 'auto')
+  if (eolArg === 'auto') {
+    fs.writeFileSync(out, content, 'utf8');
+  } else {
+    const normalizedContent = content.replace(/\r\n|\r|\n/g, resolvedEol);
+    fs.writeFileSync(out, normalizedContent, 'utf8');
+  }
   console.log('DESIGN.md generado en:', out);
 
   // recompute palette/tokens to use when applying to styles.css
@@ -102,8 +111,14 @@ try{
       ].join('\n');
 
       const newInside = cleaned.trim() + '\n\n' + primitives + '\n' + semantics + '\n';
-      const newCss = before + '\n' + newInside + '\n' + after;
-      fs.writeFileSync(cssPath, newCss, 'utf8');
+      let newCss = before + '\n' + newInside + '\n' + after;
+      // Normalize CSS file line endings only if user requested an EOL
+      if (eolArg === 'auto') {
+        fs.writeFileSync(cssPath, newCss, 'utf8');
+      } else {
+        newCss = newCss.replace(/\r\n|\r|\n/g, resolvedEol);
+        fs.writeFileSync(cssPath, newCss, 'utf8');
+      }
       console.log('styles.css actualizado con tokens brand');
     } catch(e) { console.error('No se pudo actualizar styles.css:', e.message); }
   }

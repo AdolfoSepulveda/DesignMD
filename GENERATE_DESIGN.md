@@ -14,6 +14,19 @@ node scripts/generate_design_md.js --hex 2563EB --out ./files/DESIGN.generated.m
 # Para aplicar directamente al repo (styles + DESIGN.md)
 
 node scripts/generate_design_md.js --hex 2563EB --apply-css
+
+Opcional: `--eol` (o `-e`) para normalizar finales de línea en el archivo generado y en `styles.css`.
+
+Valores:
+- `auto` — usa el `EOL` del sistema (por defecto).
+- `lf` — fuerza `\n` (Unix/macOS).
+- `crlf` — fuerza `\r\n` (Windows/Notepad compatible).
+
+Ejemplo (forzar CRLF para exportar a Windows):
+
+```bash
+node scripts/generate_design_md.js --hex 2563EB --out ./files/DESIGN.generated.md --eol crlf
+```
 ```
 
 Opciones:
